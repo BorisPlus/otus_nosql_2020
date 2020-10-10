@@ -1,6 +1,6 @@
 # MongoDB - основы
 
-от 2020.10.10
+Занятие от 2020.10.10
 
 __Цель:__ В результате выполнения ДЗ вы научитесь разворачивать MongoDB, заполнять данными и делать запросы.
 
@@ -24,3 +24,10 @@ __Рекомендуем сдать до:__ 20.10.2020
 
 ## Решение (если коротко)
 
+[52 датасета для тренировочных проектов](https://habr.com/ru/company/edison/blog/480408/)
+https://github.com/ozlerhakan/mongodb-json-files
+
+## Не касается ДЗ
+
+https://habr.com/ru/post/322532/
+https://github.com/ozlerhakan/mongodb-json-files
