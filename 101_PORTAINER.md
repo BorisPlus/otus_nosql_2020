@@ -1,10 +1,4 @@
-# PORTAINER
-
-* https://habr.com/ru/company/dockstation/blog/341886/#Portainer
-* https://sysadmin.pm/portainer/
-* https://itldc.com/ru/blog/portainer-docker-control-panel/
-
-## Вступление
+https://www.portainer.io/
 
 Изучение любой серверной техноглогии однозначно надо начинать с консоли. 
 Контейнеризация Docker - не исключение. Но рано или поздно "лень" берет верх и очень хочется оболочку. По совету друга-практика я стал разбираться с Portainer.
