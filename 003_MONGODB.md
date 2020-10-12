@@ -36,14 +36,14 @@ MongoDB было развернуто на машине в локальной с
 
 ![3.png](003_MONGODB.files/3.png)
 
-### Запонение хранилища данными
+### Заполнение хранилища данными
 
-Я в поисках данных, достаточных для изучения возможностей MongoDB, остановился на наборе данных NASA ("Earth Meteorite Landings")[https://data.nasa.gov/resource/y77d-th95.json] (1000 строк со сведениями об упавших на Землю метеоритах,
+Я в поисках данных, достаточных для изучения возможностей MongoDB, остановился на наборе данных NASA ["Earth Meteorite Landings"](https://data.nasa.gov/resource/y77d-th95.json) (1000 строк со сведениями об упавших на Землю метеоритах,
 ([y77d-th95.json](003_MONGODB.files/y77d-th95.json)) из репозитория [awesome-json-datasets](https://github.com/jdorfman/awesome-json-datasets).
 
 _Замечание_: нашел более полные (45.7K) (сведения)[https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh], но экспорт в JSON через API дает только 1000 записей (непонятно), надо перелопатить [полные данные](https://data.nasa.gov/api/views/gh4g-9sfh/rows.csv?accessType=DOWNLOAD) из [CSV](003_MONGODB.files/Meteorite_Landings.csv).
 
-_Замечание_: упс, можно получить полные данные в JSON, но это хак. Искренне надеюсь, что это __не__ (SQL-инъекция)[https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0]. 
+_Замечание_: упс, можно получить полные данные в JSON, но это хак. Искренне надеюсь, что это __не__ [SQL-инъекция](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0). 
 
 ```
 https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0
