@@ -32,7 +32,7 @@ MongoDB было развернуто на машине в локальной с
 
 ![2.png](003_MONGODB.files/2.png)
 
-Был поправлен шаблон на предмет мапипинга данных (директорий) контенера на реальные физические.
+Был поправлен шаблон на предмет мапипинга данных (директорий) контейнера на реальные физические.
 
 ![3.png](003_MONGODB.files/3.png)
 
@@ -43,7 +43,13 @@ MongoDB было развернуто на машине в локальной с
 
 _Замечание_: нашел более полные (45.7K) (сведения)[https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh], но экспорт в JSON через API дает только 1000 записей (непонятно), надо перелопатить [полные данные](https://data.nasa.gov/api/views/gh4g-9sfh/rows.csv?accessType=DOWNLOAD) из [CSV](003_MONGODB.files/Meteorite_Landings.csv).
 
-_Замечание_: офигеть, можно полные данные в JSON. Искренне надеюсь, что это __не__ инъекция [https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0). Итог [gh4g-9sfh.json](003_MONGODB.files/gh4g-9sfh.json)
+_Замечание_: упс, можно получить полные данные в JSON, но это хак. Искренне надеюсь, что это __не__ (SQL-инъекция)[https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0]. 
+
+```
+https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0
+```
+
+Итог [gh4g-9sfh.json](003_MONGODB.files/gh4g-9sfh.json)
 
 ```bash
 wc ./003_MONGODB.files/gh4g-9sfh.json
