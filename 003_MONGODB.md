@@ -242,7 +242,8 @@ db.eml45k.updateMany(
 ```
 
 <details> 
-```
+
+
 { "name" : "Chelyabinsk", "pointed_geolocation" : { "coordinates" : [ 61.11667, 54.81667 ] }, "year" : 2013 }
 
 { "name" : "Dashoguz", "pointed_geolocation" : { "coordinates" : [ 59.685, 41.98444 ] }, "year" : 1998 }
@@ -298,10 +299,10 @@ Type "it" for more
 { "name" : "Tyumen", "pointed_geolocation" : { "coordinates" : [ 65.53333, 57.16667 ] }, "year" : 1903 }
 
 { "name" : "Ochansk", "pointed_geolocation" : { "coordinates" : [ 55.26667, 57.78333 ] }, "year" : 1887 }
-```
+
 </details>
 
-Странно, почему челябинский __не__ значится в категории "найден".
+Странно, почему Челябинский __не__ значится в категории "найден".
 
 Агрегируем и найдем сколько найдено и сколько нет:
 
