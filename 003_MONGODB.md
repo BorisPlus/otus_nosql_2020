@@ -167,7 +167,8 @@ Type "it" for more
 ```bash
 "geolocation" : { "latitude" : "49.78333", "longitude" : "30.16667" } 
 ```
-в точку (необходимо заметить изменение порядка следования, это в соотвествии с (документацией)[https://docs.mongodb.com/manual/geospatial-queries/#geospatial-legacy]: _\<field>: \[\<longitude>, \<latitude>]_):
+в точку (необходимо заметить изменение порядка следования, это в соотвествии с https://docs.mongodb.com/manual/geospatial-queries/#geospatial-legacy
+ (_\<field>: \[\<longitude>, \<latitude>]_):
 
 ```bash
 "geolocation" : { "type" : "Point", "coordinates" : [  30.16667 , 49.78333 ] } }
