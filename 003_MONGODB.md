@@ -11,7 +11,7 @@ __Необходимо:__
 
 Сдача ДЗ осуществляется в виде миниотчета.
 
-__Дпоплнительно:__
+__Дополнительно:__
 * создать индексы и сравнить производительность.
 
 __Критерии оценки:__
@@ -38,13 +38,14 @@ MongoDB было развернуто на машине в локальной с
 
 ### Заполнение хранилища данными
 
-Я в поисках данных, достаточных для изучения возможностей MongoDB, остановился на наборе данных NASA ["Earth Meteorite Landings"](https://data.nasa.gov/resource/y77d-th95.json) (1000 строк со сведениями об упавших на Землю метеоритах,
+Я в поисках данных, достаточных для изучения базовых возможностей MongoDB, остановился на наборе данных NASA ["Earth Meteorite Landings"](https://data.nasa.gov/resource/y77d-th95.json) (1000 строк со сведениями об упавших на Землю метеоритах,
 ([y77d-th95.json](003_MONGODB.files/y77d-th95.json)) из репозитория [awesome-json-datasets](https://github.com/jdorfman/awesome-json-datasets).
 
-_Замечание_: нашел более полные (45.7K) (сведения)[https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh], но экспорт в JSON через API дает только 1000 записей (непонятно), надо перелопатить [полные данные](https://data.nasa.gov/api/views/gh4g-9sfh/rows.csv?accessType=DOWNLOAD) из [CSV](003_MONGODB.files/Meteorite_Landings.csv).
+_Замечание_: нашел более полные (45.7K) (сведения)[https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh], но экспорт в JSON через их API дает только 1000 записей (непонятно), надо перелопатить [полные данные](https://data.nasa.gov/api/views/gh4g-9sfh/rows.csv?accessType=DOWNLOAD) из экспортируемого файла [CSV](003_MONGODB.files/Meteorite_Landings.csv).
 
-_Замечание_: упс, можно получить полные данные в JSON, но это хак. Искренне надеюсь, что это __не__ [SQL-инъекция](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0). 
-
+_Замечание_: упс, можно получить полные данные в JSON, но это хак. Искренне надеюсь, что в этом __нет__ [SQL-инъекции](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0) 
+ (не нажимайте, содержание ссылки приведено ниже).
+ 
 ```
 https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0](https://data.nasa.gov/api/id/gh4g-9sfh.json?$select=`name`,`id`,`nametype`,`recclass`,`mass`,`fall`,`year`,`reclat`,`reclong`,`geolocation`&$order=`:id`+ASC&$limit=46000&$offset=0
 ```
@@ -134,7 +135,7 @@ eml
 
 ```
 
-Выборка списка упавших метеоритов с сортировкой по году падения (интересно, почему у них нет конкретного времени падения по Гринвичу) и ограничением списка выбираемых полей:
+Выборка списка упавших метеоритов с сортировкой по году падения (интересно, почему у NASA нет конкретного времени падения по Гринвичу) и c ограничением списка выбираемых полей:
 
 ```bash
 > db.eml45k.find( { }, {year: 1, id: 1, name: 1, _id: 0 }).sort( { year: -1 } )
@@ -195,7 +196,7 @@ Type "it" for more
 }) 
 ```
 
-поэтому создал искусственное поле в коллекции:
+Поэтому создал искусственное поле в коллекции:
 
 ```bash
 db.eml45k.updateMany( 
@@ -336,7 +337,7 @@ db.eml45k.aggregate([
 
 ## Дополнительное задание. Использование индексов
 
-Удалим все индексы в коллекции от прошлых эксперементов:
+Удалим все индексы в коллекции от прошлых экспериментов:
 
 ```bash
 db.eml45k.dropIndexes()
@@ -523,6 +524,8 @@ db.eml45k.find({
 без индекса 125, 123, 119, 123 милисекунды, а с индексом - 7, 4, 4, 5. 
 
 Всё получилось.
+
+P.S. Домашку зачли.
 
 ## Не касается ДЗ, это мне на будущее
 
