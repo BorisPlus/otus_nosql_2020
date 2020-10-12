@@ -244,32 +244,59 @@ db.eml45k.updateMany(
 <details> 
 ```
 { "name" : "Chelyabinsk", "pointed_geolocation" : { "coordinates" : [ 61.11667, 54.81667 ] }, "year" : 2013 }
+
 { "name" : "Dashoguz", "pointed_geolocation" : { "coordinates" : [ 59.685, 41.98444 ] }, "year" : 1998 }
+
 { "name" : "Kunya-Urgench", "pointed_geolocation" : { "coordinates" : [ 59.2, 42.25 ] }, "year" : 1998 }
+
 { "name" : "Sterlitamak", "pointed_geolocation" : { "coordinates" : [ 55.98333, 53.66667 ] }, "year" : 1990 }
+
 { "name" : "Undulung", "pointed_geolocation" : { "coordinates" : [ 124.76667, 66.13889 ] }, "year" : 1986 }
+
 { "name" : "Omolon", "pointed_geolocation" : { "coordinates" : [ 161.80833, 64.02 ] }, "year" : 1981 }
+
 { "name" : "Yardymly", "pointed_geolocation" : { "coordinates" : [ 48.25, 38.93333 ] }, "year" : 1959 }
+
 { "name" : "Vengerovo", "pointed_geolocation" : { "coordinates" : [ 77.26667, 56.13333 ] }, "year" : 1950 }
+
 { "name" : "Kunashak", "pointed_geolocation" : { "coordinates" : [ 61.36667, 55.78333 ] }, "year" : 1949 }
+
 { "name" : "Krasnyi Klyuch", "pointed_geolocation" : { "coordinates" : [ 56.08333, 54.33333 ] }, "year" : 1946 }
+
 { "name" : "Lavrentievka", "pointed_geolocation" : { "coordinates" : [ 51.56667, 52.45 ] }, "year" : 1938 }
+
 { "name" : "Pavlodar (stone)", "pointed_geolocation" : { "coordinates" : [ 77.03333, 52.3 ] }, "year" : 1938 }
+
 { "name" : "Kainsaz", "pointed_geolocation" : { "coordinates" : [ 53.25, 55.43333 ] }, "year" : 1937 }
+
 { "name" : "Ichkala", "pointed_geolocation" : { "coordinates" : [ 82.93333, 58.2 ] }, "year" : 1936 }
+
 { "name" : "Nikolaevka", "pointed_geolocation" : { "coordinates" : [ 78.63333, 52.45 ] }, "year" : 1935 }
+
 { "name" : "Brient", "pointed_geolocation" : { "coordinates" : [ 59.31667, 52.13333 ] }, "year" : 1933 }
+
 { "name" : "Pesyanoe", "pointed_geolocation" : { "coordinates" : [ 66.08333, 55.5 ] }, "year" : 1933 }
+
 { "name" : "Kuznetzovo", "pointed_geolocation" : { "coordinates" : [ 75.33333, 55.2 ] }, "year" : 1932 }
+
 { "name" : "Boriskino", "pointed_geolocation" : { "coordinates" : [ 52.48333, 54.23333 ] }, "year" : 1930 }
+
 { "name" : "Khmelevka", "pointed_geolocation" : { "coordinates" : [ 75.33333, 56.75 ] }, "year" : 1929 }
+
 Type "it" for more
+
 > it
+
 { "name" : "Mamra Springs", "pointed_geolocation" : { "coordinates" : [ 62.08333, 45.21667 ] }, "year" : 1927 }
+
 { "name" : "Demina", "pointed_geolocation" : { "coordinates" : [ 84.76667, 51.46667 ] }, "year" : 1911 }
+
 { "name" : "Krutikha", "pointed_geolocation" : { "coordinates" : [ 77, 56.8 ] }, "year" : 1906 }
+
 { "name" : "Barnaul", "pointed_geolocation" : { "coordinates" : [ 84.08333, 52.73333 ] }, "year" : 1904 }
+
 { "name" : "Tyumen", "pointed_geolocation" : { "coordinates" : [ 65.53333, 57.16667 ] }, "year" : 1903 }
+
 { "name" : "Ochansk", "pointed_geolocation" : { "coordinates" : [ 55.26667, 57.78333 ] }, "year" : 1887 }
 ```
 </details>
