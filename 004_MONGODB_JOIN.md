@@ -100,7 +100,7 @@ db.orders.aggregate([
 { "_id" : 4, "item" : "test", "price" : 25, "quantity" : 1, "inventories" : [ ] }
 ```
 
-`5-ая строка оторалось, так как "item" == 'pecans' и "sku" == 'pecans' и "item" == "sku"`
+`5-ая строка отобралось, так как "item" == 'pecans' и "sku" == 'pecans' и "item" == "sku"`
 ```json
 { "_id" : 5, "item" : "pecans", "price" : 25, "quantity" : 1, "inventories" : [ 
     { "_id" : 4, "sku" : "pecans", "description" : "product 4", "instock" : 70 }, 
