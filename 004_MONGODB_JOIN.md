@@ -217,7 +217,8 @@ db.orders.aggregate([
 ] }
 ```
 
-Таким образом итоговый, __"настоящий" INNER запрос будет выглядеть именно так__ (поправьте меня, пожалуйста, если я не прав): 
+Таким образом итоговый, __"настоящий" INNER запрос будет выглядеть именно так__ 
+(поправьте меня, пожалуйста, если я не прав): 
  
 ```json
 db.orders.aggregate([
@@ -238,7 +239,7 @@ db.orders.aggregate([
 
 Выборка 
 
-`
+```json
 { "_id" : 1, "item" : "almonds", "price" : 12, "quantity" : 2, "inventories" : [ 
   { "_id" : 1, "sku" : "almonds", "description" : "product 1", "instock" : 120 } 
 ] }
@@ -254,7 +255,7 @@ db.orders.aggregate([
   { "_id" : 10, "sku" : "pecans", "description" : "product 7", "instock" : 70 }, 
   { "_id" : 11, "sku" : "pecans", "description" : "product 8", "instock" : 70 } 
 ] }
-`
+```
 
 ## На память
 
