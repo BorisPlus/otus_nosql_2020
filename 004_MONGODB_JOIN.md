@@ -62,17 +62,17 @@ db.orders.aggregate([
 
 `1-ая строка отобралось, так как "item" == 'almonds' и "sku" == 'almonds' и "item" == "sku"`
 ```json
-{ "_id" : 1, __"item" : "almonds"__, "price" : 12, "quantity" : 2, "inventories" : [ 
-    { "_id" : 1, __"sku" : "almonds"__, "description" : "product 1", "instock" : 120 } 
+{ "_id" : 1, "item" : "almonds", "price" : 12, "quantity" : 2, "inventories" : [ 
+    { "_id" : 1, "sku" : "almonds", "description" : "product 1", "instock" : 120 } 
 ] }
 ```
 
 `2-ая строка отобралось, так как "item" == 'pecans' и "sku" == 'pecans' и "item" == "sku"`
 ```json
-{ "_id" : 2, __"item" : "pecans"__, "price" : 20, "quantity" : 1, "inventories" : [ 
-    { "_id" : 4, __"sku" : "pecans"__, "description" : "product 4", "instock" : 70 }, 
-    { "_id" : 10, __"sku" : "pecans"__, "description" : "product 7", "instock" : 70 }, 
-    { "_id" : 11, __"sku" : "pecans"__, "description" : "product 8", "instock" : 70 } 
+{ "_id" : 2, "item" : "pecans", "price" : 20, "quantity" : 1, "inventories" : [ 
+    { "_id" : 4, "sku" : "pecans", "description" : "product 4", "instock" : 70 }, 
+    { "_id" : 10, "sku" : "pecans", "description" : "product 7", "instock" : 70 }, 
+    { "_id" : 11, "sku" : "pecans", "description" : "product 8", "instock" : 70 } 
 ] }
 ```
 
