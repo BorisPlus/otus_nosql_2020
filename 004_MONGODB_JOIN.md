@@ -1,10 +1,15 @@
-# MongoDB JOIN realization
+# Реализация JOIN в MongoDB
 
-Для разрешения возникшего с моей стороны непонимания как происходит JOIN выборка в MongoDB
+Написано для разрешения возникшего с моей стороны непонимания, как происходит JOIN выборка в MongoDB.
 
-(Официальный документ)[https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/]
+- покажу, что `lookup` - это "не совсем LEFT"
+- покажу, как из "не совсем LEFT" сделать INNER
 
-## DATA FROM EXAMPLE
+[Официальный документ](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup)
+
+## Пример
+
+Расширим пример из документации [https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#examples](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#examples)
 
 ```json
     db.orders.drop()
@@ -35,9 +40,10 @@
     db.inventory.find()
 ```
 
-## LEFT JOIN orders WITH inventory
+## Осуществляем сопоставление `orders` и `inventory`
 
-Да, это действительно LEFT соединение (хотя и реализуется через конструкцию `IN`) , и для его 
+Да, это действительно __похоже__ на LEFT соединение (в документации приводится аналогия с IN в SQL):
+ 
 ```json
     db.orders.aggregate([
         {
@@ -49,8 +55,11 @@
             }
         }
     ])
- ```
- `
+```
+
+Но это не совсем так
+
+`
 # отобралось, так как "item" == "almonds" и "sku" == "almonds" и "item" == "sku"
 { "_id" : 1, __"item" : "almonds"__, "price" : 12, "quantity" : 2, "inventories" : [ 
     { "_id" : 1, __"sku" : "almonds"__, "description" : "product 1", "instock" : 120 } 
@@ -63,13 +72,20 @@
     { "_id" : 11, __"sku" : "pecans"__, "description" : "product 8", "instock" : 70 } 
 ] }
 
-# оторалось, __так как__ "item" == NULL и "sku" == NULL и "item" == "sku"
+# отобралось, __так как__ "item" == NULL и "sku" == NULL и как бы "item" == "sku"
+# пожалуйста, запомните именно эту строку (*)
+# вот именно из-за ЭТОЙ строки эта выборка не является привычным LEFT соединением
+# в SQL значения NULL не сопоставляются, (__NULL не равен ничему, к нему необходимо применять ISNULL__) 
+# (см. пример для PostgreSQL ниже) 
 { "_id" : 3, "inventories" : [ 
     { "_id" : 5, "sku" : null, "description" : "Incomplete 5" }, 
     { "_id" : 6 } 
 ] }
 
-# оторалось, так как "item" == test и "sku" == NULL и test == NULL (__NULL равен всему__, ведь к нему необходимо применять ISNULL)
+# отобралось, так как "item" == test и "sku" == NULL, то есть нет сопоставления для значения test
+# вот из-за этой строки видится, что это именно LEFT соединение,
+# так как если б это был INNER, то именно данная строка бы и отсутствовала в результирующей выборке
+# но описанная выше "строка" вносит особенность и делает из LEFT - "не совсем LEFT"
 { "_id" : 4, "item" : "test", "price" : 25, "quantity" : 1, "inventories" : [ ] }
 
 # оторалось, так как "item" == "pecans" и "sku" == "pecans" и "item" == "sku"
@@ -80,12 +96,56 @@
 ] }
 
 `
- 
-Если б это был INNER, то именно данная строка бы отсутствовала в выборке
- 
- ```json
-{ "_id" : 4, "item" : "test", "price" : 25, "quantity" : 1, "inventories" : [ ] }
+
+_Заметка по NULL-значениям в SQL_:
+
+Обещанные примеры на SQL
+```postgres-sql
+SELECT 
+    'x' as a, 
+    NULL as nulled, 
+    case when ('x' = NULL) then 'TRUE' else 'FALSE' end a__eq__nulled
+UNION
+SELECT 
+    NULL as a, 
+    NULL as nulled, 
+    case when (NULL = NULL) then 'TRUE' else 'FALSE' end a__eq__nulled
 ```
+Итог NULL не равен ничему, даже самому себе, а в выборке выше указанная строка (*) отобралась именно по этому принципу
+
+a | nulled | a__eq__nulled
+_ | _ | ________
+'x' | _NULL_ | __FALSE__
+_NULL_ | _NULL_ | __FALSE__
+
+
+```postgres-sql
+WITH 
+ab AS (
+	SELECT a, b 
+	FROM 
+	(
+		SELECT 'a1' as a, 'b1' as b
+		UNION
+		SELECT 'a2' as a, NULL as b
+	) as _ab
+),
+cd AS (
+	SELECT c, d
+	FROM 
+	(
+		SELECT 'c1' as c, NULL as d 
+		UNION
+		SELECT 'c1' as c, NULL as d 
+	) as _cd
+)
+SELECT ab.a, ab.b, cd.c ,cd.d
+FROM ab
+LEFT JOIN cd
+ON ab.b = cd.d
+```
+
+Не хочу форматировать вывод, но поверьте, в выборке будет отсутсвовать ("a2";NULL;"c1";NULL).
 
 ## Как сделать INNER 
         
@@ -143,7 +203,8 @@
   { "_id" : 6 } 
 ] }
 ```
-Таким образом итоговый, "настоящий" INNER запрос будет выглядеть именно так (поправьте меня, пожалуйста, если я не прав): 
+
+Таким образом итоговый, __"настоящий" INNER запрос будет выглядеть именно так__ (поправьте меня, пожалуйста, если я не прав): 
  
 ```json
     db.orders.aggregate([
@@ -205,7 +266,7 @@
 
 ### Обратный просмотр при выборке
   
-  когда подзапрос "посматривает в основной запрос"
+когда подзапрос "подсматривает в основной запрос"
 
  ```
     
