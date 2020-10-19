@@ -203,7 +203,7 @@ db.orders.aggregate([
         }
     },
     {
-        $match: { inventories: { $elemMatch : { sku: null } } } /* <-- */ 
+        $match: { inventories: { $elemMatch : { sku: null } } } /*<--*/ 
     }
 ])
 ```
@@ -232,12 +232,12 @@ db.orders.aggregate([
         }
     },
     {
-        $match: { inventories: { $elemMatch : { sku: { $ne:  null } } }} /* <-- */ 
+        $match: { inventories: { $elemMatch : { sku: { $ne:  null } } }} /*<--*/ 
     }
 ])
 ```
 
-Выборка 
+Выборка строгого сопоставления привычного в SQL соединения INNER JOIN
 
 ```json
 { "_id" : 1, "item" : "almonds", "price" : 12, "quantity" : 2, "inventories" : [ 
