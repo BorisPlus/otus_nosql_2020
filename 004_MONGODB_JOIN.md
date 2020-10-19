@@ -57,55 +57,54 @@ db.orders.aggregate([
 ])
 ```
 
-Но это не совсем так, разберем выборку "строк" (документов), прокомментироваав каждую из них:
+Но это не совсем так, разберем выборку "строк" (документов), прокомментировав каждую из них:
 
-`
 
-`отобралось, так как "item" == "almonds" и "sku" == "almonds" и "item" == "sku"`
-
+`1-ая строка отобралось, так как "item" == "almonds" и "sku" == "almonds" и "item" == "sku"`
+```json
 { "_id" : 1, __"item" : "almonds"__, "price" : 12, "quantity" : 2, "inventories" : [ 
     { "_id" : 1, __"sku" : "almonds"__, "description" : "product 1", "instock" : 120 } 
 ] }
+```
 
-
-`отобралось, так как "item" == "pecans" и "sku" == "pecans" и "item" == "sku"`
-
+`2-ая строка отобралось, так как "item" == "pecans" и "sku" == "pecans" и "item" == "sku"`
+```json
 { "_id" : 2, __"item" : "pecans"__, "price" : 20, "quantity" : 1, "inventories" : [ 
     { "_id" : 4, __"sku" : "pecans"__, "description" : "product 4", "instock" : 70 }, 
     { "_id" : 10, __"sku" : "pecans"__, "description" : "product 7", "instock" : 70 }, 
     { "_id" : 11, __"sku" : "pecans"__, "description" : "product 8", "instock" : 70 } 
 ] }
+```
 
-
-`отобралось, __так как__ "item" == NULL и "sku" == NULL и как бы "item" == "sku"
+`3-яя строка отобралось, __так как__ "item" == NULL и "sku" == NULL и как бы "item" == "sku"
 пожалуйста, запомните именно эту строку (*)
 вот именно из-за ЭТОЙ строки эта выборка не является привычным LEFT соединением
 в SQL значения NULL не сопоставляются, (__NULL не равен ничему, к нему необходимо применять ISNULL__) 
 (см. пример для PostgreSQL ниже) `
-
+```json
 { "_id" : 3, "inventories" : [ 
     { "_id" : 5, "sku" : null, "description" : "Incomplete 5" }, 
     { "_id" : 6 } 
 ] }
+```
 
-
-`отобралось, так как "item" == test и "sku" == NULL, то есть нет сопоставления для значения test
+`4-ая строка отобралось, так как "item" == test и "sku" == NULL, то есть нет сопоставления для значения test
 вот из-за этой строки видится, что это именно LEFT соединение,
 так как если б это был INNER, то именно данная строка бы и отсутствовала в результирующей выборке
 но описанная выше "строка" вносит особенность и делает из LEFT - "не совсем LEFT"`
-
+```json
 { "_id" : 4, "item" : "test", "price" : 25, "quantity" : 1, "inventories" : [ ] }
+```
 
-
-`оторалось, так как "item" == "pecans" и "sku" == "pecans" и "item" == "sku"`
-
+`5-ая строка оторалось, так как "item" == "pecans" и "sku" == "pecans" и "item" == "sku"`
+```json
 { "_id" : 5, "item" : "pecans", "price" : 25, "quantity" : 1, "inventories" : [ 
     { "_id" : 4, "sku" : "pecans", "description" : "product 4", "instock" : 70 }, 
     { "_id" : 10, "sku" : "pecans", "description" : "product 7", "instock" : 70 }, 
     { "_id" : 11, "sku" : "pecans", "description" : "product 8", "instock" : 70 } 
 ] }
+```
 
-`
 
 _Заметка по NULL-значениям в SQL_:
 
