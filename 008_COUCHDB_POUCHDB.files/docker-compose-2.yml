@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+  otus008_couchdb:
+    container_name: couchdb
+    restart: always
+    image: couchdb:latest
+    ports:
+      - 15984:5984
+    volumes:
+      - "/media/raid_1_4tb/portainer/data/otus_008/opt/couchdb/data:/opt/couchdb/data"
+      - "/media/raid_1_4tb/portainer/data/otus_008/opt/couchdb/etc/local.d:/opt/couchdb/etc/local.d"
+    environment:
+      - 'COUCHDB_USER=admin'
+      - 'COUCHDB_PASSWORD=password'
+  couchdb_setup:
+    depends_on: ['otus008_couchdb']
+    container_name: couchdb_setup
+    image: couchdb:latest
+    command: ['/bin/bash', '-x', '-c', 'curl -X PUT http://localhost:5984/_users']
+    command: ['/bin/bash', '-x', '-c', 'curl -X PUT http://localhost:5984/_replicator']
+    command: ['/bin/bash', '-x', '-c', 'curl -X PUT http://localhost:5984/_global_changes']
+    command:
+      - '/bin/bash -x -c "curl -X PUT http://user:user@localhost:5984/_users"'
+      - '/bin/bash -x -c "curl -X PUT http://user:user@localhost:5984/_replicator"'
+      - '/bin/bash -x -c "curl -X PUT http://user:user@localhost:5984/_global_changes"'
+
+    environment:
+    - 'COUCHDB_USER=admin'
+    - 'COUCHDB_PASSWORD=password'

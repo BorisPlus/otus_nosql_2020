@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  otus008:
+    container_name: otus008_couchdb
+    restart: always
+    image: couchdb:latest
+    ports:
+      - 15984:5984
+    volumes:
+      - "/media/raid_1_4tb/portainer/data/otus_008/opt/couchdb/data:/opt/couchdb/data"
+      - "/media/raid_1_4tb/portainer/data/otus_008/opt/couchdb/etc/local.d:/opt/couchdb/etc/local.d"
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=user

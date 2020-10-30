@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>PouchDB</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <!-- DOM -->
+    <div class="App">
+      <button id="add">Add</button>
+      <button id="remove">Remove</button>
+      <button id="sync">Sync</button>
+      <ul id="list"></ul>
+    </div>
+
+    <!-- Sciprts -->
+    <script src="./index_files/pouchdb.min.js"></script>
+    <script>
+      let data = []
+
+      const DBS = {
+        Local: new PouchDB('docs'),
+        Remote: new PouchDB('http://admin:user@192.168.102.99:15984/database')
+      }
+
+      const sync = DBS.Local.sync(DBS.Remote, {
+        live: true,
+        retry: true
+      }).on('change', ({ change }) => {
+        const doc = change.docs[0]
+        console.log('CHANGE DOCUMENT', doc)
+        if (doc._deleted) {
+          data = data.filter(item => item._id != doc._id )
+          render(data)
+        } else {
+          data = data.concat(doc)
+        }
+      })
+
+      const render = data => {
+        list.innerHTML = data.map(item => `<li>${item.name}</li>`).join('')
+      }
+
+      const fetch = () => {
+        DBS.Local.allDocs({ include_docs: true })
+        .then(result => {
+          data = result.rows.map(r => r.doc)
+          console.log('FETCH DATA', data)
+          render(data)
+        })
+      }
+
+      // Events
+      const addBtn = document.querySelector('#add')
+      const removeBtn = document.querySelector('#remove')
+      const list = document.querySelector('#list')
+      const syncBtn = document.querySelector('#sync')
+
+      addBtn.addEventListener('click', () => {
+        const dt = new Date()
+        const item = { name: dt, date: dt }
+        DBS.Local.post(item)
+        fetch()
+      })
+
+      removeBtn.addEventListener('click', () => {
+        const item = data.pop()
+        if (! item) return
+        DBS.Local.remove(item)
+        fetch()
+
+      })
+
+      syncBtn.addEventListener('click', () => fetch())
+
+      <!-- No need initial sync-click -->
+      fetch()
+    </script>
+  
+</body></html>
