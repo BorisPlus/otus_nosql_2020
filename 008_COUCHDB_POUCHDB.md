@@ -15,7 +15,7 @@ __Цель__: Результат ДЗ - файл с синхронизирова
 
 ## Установить CouchDB
 
-Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о [Portainer](./101_PORTAINER.md target=_blank)) 
+Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о <a href="./101_PORTAINER.md" target="_blank">Portainer</a>) 
 
 ```bash
 version: "2"
