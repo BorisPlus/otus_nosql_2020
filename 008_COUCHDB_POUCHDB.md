@@ -15,7 +15,7 @@ __Цель__: Результат ДЗ - файл с синхронизирова
 
 ## Установить CouchDB
 
-Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о [Portainer](./101_PORTAINER.md)) 
+Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о [Portainer](./101_PORTAINER.md target=_blank)) 
 
 ```bash
 version: "2"
@@ -35,9 +35,9 @@ services:
       - COUCHDB_PASSWORD=user
 ```
 
-И развернул "CouchDB" __ВРУЧНУЮ__ (далее будет об этом вопрос) в Standalone-режиме [http://192.168.102.99:15984/_utils/#setup](http://192.168.102.99:15984/_utils/#setup)
+И развернул "CouchDB" __ВРУЧНУЮ__ (далее будет об этом вопрос) в Standalone-режиме `http://192.168.102.99:15984/_utils/#setup](http://192.168.102.99:15984/_utils/#setup`.
 
-Проверим готовность инсталляции [http://192.168.102.99:15984/_utils/#/verifyinstall](http://192.168.102.99:15984/_utils/#/verifyinstall)
+Проверим готовность инсталляции `http://192.168.102.99:15984/_utils/#/verifyinstall`.
 
 ### Воспрос автоматического разворачивания CouchDB в Standalone-режиме 
 
@@ -49,21 +49,21 @@ services:
 
 которые необходимы в Standalone-режиме CouchDB.
 
-Исходя из документации [https://hub.docker.com/_/couchdb](https://hub.docker.com/_/couchdb)
+Исходя из документации [https://hub.docker.com/_/couchdb](https://hub.docker.com/_/couchdb target=_blank)
 
 ```text
 If you choose not to use the Cluster Setup wizard or API, 
 you will have to create _global_changes, _replicator and _users manually.
 ```
 
-и [https://docs.couchdb.org/en/stable/install/docker.html](https://docs.couchdb.org/en/stable/install/docker.html)
+и [https://docs.couchdb.org/en/stable/install/docker.html](https://docs.couchdb.org/en/stable/install/docker.html target=_blank)
 
 ```text
 Your installation is not complete. Be sure to complete the Setup steps 
 for a single node or clustered installation.
 ```
 
-и [https://docs.couchdb.org/en/stable/setup/single-node.html](https://docs.couchdb.org/en/stable/setup/single-node.html)
+и [https://docs.couchdb.org/en/stable/setup/single-node.html](https://docs.couchdb.org/en/stable/setup/single-node.html target=_blank)
 
 ```text
  if you don’t want to use the Setup Wizard or set that value, 
@@ -76,7 +76,7 @@ for a single node or clustered installation.
 ```
 
 необходимо создать их самостоятельно, инициализировав CouchDB для работы в Standalone-режиме (Configure a Single Node) 
-через ВЕБ-интерфейс (кнопкой, [http://192.168.102.99:15984/_utils/#setup](http://192.168.102.99:15984/_utils/#setup)).
+через ВЕБ-интерфейс (кнопкой, `http://192.168.102.99:15984/_utils/#setup`).
  
 Я __НЕ СМОГ__ каким-либо образом это автоматизировать с использованием `docker-compose.yml`. Пожалуйста, подскажите (как?).
 
@@ -190,7 +190,7 @@ fetch()
 
 ### Включил CORS
 
-Включил [http://192.168.102.99:15984/_utils/#_config/nonode@nohost/cors](http://192.168.102.99:15984/_utils/#_config/nonode@nohost/cors) для `All domains ( * )`, 
+Включил `http://192.168.102.99:15984/_utils/#_config/nonode@nohost/cors` для `All domains ( * )`, 
 потому что для файла, открытого локально на компе (без запуска через веб сервер на localhost домене), 
 не смог (а это вообще возможно?) задать принудительно `file:///home` (Please enter a valid domain, starting with http/https.)
 
@@ -205,7 +205,7 @@ fetch()
 
 ## Прислать либо сохраненный из chrome (уже с прочитанной фамилией) index.html, либо опубликовать его, к примеру, на githubpages и прислать ссылку.
 
-[PouchDB.html](./008_COUCHDB_POUCHDB.files/PouchDB.html)
+[PouchDB.html](./008_COUCHDB_POUCHDB.files/PouchDB.html target=_blank)
 ![png](./008_COUCHDB_POUCHDB.files/PouchDB.png)
 
 ## Дополнительно
