@@ -37,7 +37,7 @@ services:
 
 И развернул "CouchDB" __ВРУЧНУЮ__ (далее будет об этом вопрос) в Standalone-режиме `http://192.168.102.99:15984/_utils/#setup`.
 
-Проверим готовность инсталляции `http://192.168.102.99:15984/_utils/#/verifyinstall`.
+Проверил готовность инсталляции `http://192.168.102.99:15984/_utils/#/verifyinstall`.
 
 ### Воспрос автоматического разворачивания CouchDB в Standalone-режиме 
 
@@ -49,14 +49,14 @@ services:
 
 которые необходимы в Standalone-режиме CouchDB.
 
-Исходя из документации [https://hub.docker.com/_/couchdb](https://hub.docker.com/_/couchdb){:target="_blank"}
+Исходя из документации [https://hub.docker.com/_/couchdb](https://hub.docker.com/_/couchdb)
 
 ```text
 If you choose not to use the Cluster Setup wizard or API, 
 you will have to create _global_changes, _replicator and _users manually.
 ```
 
-и [https://docs.couchdb.org/en/stable/install/docker.html](https://docs.couchdb.org/en/stable/install/docker.html){:target="_blank"}
+и [https://docs.couchdb.org/en/stable/install/docker.html](https://docs.couchdb.org/en/stable/install/docker.html)
 
 ```text
 Your installation is not complete. Be sure to complete the Setup steps 
