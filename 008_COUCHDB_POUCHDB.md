@@ -35,7 +35,7 @@ services:
       - COUCHDB_PASSWORD=user
 ```
 
-И развернул "CouchDB" __ВРУЧНУЮ__ (далее будет об этом вопрос) в Standalone-режиме `http://192.168.102.99:15984/_utils/#setup](http://192.168.102.99:15984/_utils/#setup`.
+И развернул "CouchDB" __ВРУЧНУЮ__ (далее будет об этом вопрос) в Standalone-режиме `http://192.168.102.99:15984/_utils/#setup`.
 
 Проверим готовность инсталляции `http://192.168.102.99:15984/_utils/#/verifyinstall`.
 
