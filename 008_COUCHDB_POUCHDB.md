@@ -15,7 +15,7 @@ __Цель__: Результат ДЗ - файл с синхронизирова
 
 ## Установить CouchDB
 
-Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о <a href="./101_PORTAINER.md" target="_blank">Portainer</a>) 
+Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о [Portainer](./101_PORTAINER.md)) 
 
 ```bash
 version: "2"
@@ -63,7 +63,7 @@ Your installation is not complete. Be sure to complete the Setup steps
 for a single node or clustered installation.
 ```
 
-и [https://docs.couchdb.org/en/stable/setup/single-node.html](https://docs.couchdb.org/en/stable/setup/single-node.html){:target="_blank"}
+и [https://docs.couchdb.org/en/stable/setup/single-node.html](https://docs.couchdb.org/en/stable/setup/single-node.html)
 
 ```text
  if you don’t want to use the Setup Wizard or set that value, 
@@ -175,7 +175,7 @@ removeBtn.addEventListener('click', () => {
         const doc = change.docs[0]
         console.log('change doc', doc)
         if (doc._deleted) {
-          data = data.filter(item => item._id != doc._id )
+          data = data.filter(item => item._id != doc._id)
           <!-- Перенес сюда строку -->
           render(data)
         } else {
@@ -205,7 +205,7 @@ fetch()
 
 ## Прислать либо сохраненный из chrome (уже с прочитанной фамилией) index.html, либо опубликовать его, к примеру, на githubpages и прислать ссылку.
 
-[PouchDB.html](./008_COUCHDB_POUCHDB.files/PouchDB.html){:target="_blank"}
+[PouchDB.html](./008_COUCHDB_POUCHDB.files/PouchDB.html)
 ![png](./008_COUCHDB_POUCHDB.files/PouchDB.png)
 
 ## Дополнительно
@@ -214,7 +214,7 @@ fetch()
 
 1. Удадли пару документов из списка при выключенном сервере, получил остаток
 2. Включил ранее остановленный CouchDB
-3. Не сразу, но в конце концов документы, удаленные в п.1, удалились и в CouchDB (без Sync или обновления страницы ).
+3. Не сразу, но в конце концов документы, удаленные в п.1, удалились и в CouchDB (без Sync или обновления страницы).
 
 
 ## Материалы по теме
