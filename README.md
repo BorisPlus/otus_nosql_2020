@@ -9,6 +9,7 @@
 6. нет
 7. нет
 8. [CouchDB](./008_COUCHDB_POUCHDB.md)
+9. [ElasticSearch](./009_ELASTICSEARCH.md)
 
 
 ## Заметки
