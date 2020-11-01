@@ -46,7 +46,7 @@ networks:
 ```
 
 
-_Заметка_: во время установки возникала ошибка
+___Заметка___: во время установки возникала ошибка
 ```bash
 .. ElasticsearchException[failed to bind service]; nested: AccessDeniedException
 ```
@@ -82,7 +82,7 @@ sudo chown -R 1000:1000 /media/raid_1_4tb/portainer/data/otus_009/elastic
 
 ## 1.2. Развернул Kibana в Docker
 
-Исходя из документации [kibana](https://www.elastic.co/guide/en/kibana/current/docker.html)
+Исходя из документации [kibana](https://www.elastic.co/guide/en/kibana/current/docker.html) файл имеет вид `dicker-compose.yml`
 
 ```bash
 version: '2'
@@ -97,7 +97,7 @@ services:
 
 ```
 
-Работоспособность по адресу http://192.168.102.99:5601
+Работоспособность по адресу `http://192.168.102.99:5601`
 
 ![png](./009_ELASTICSEARCH.files/1.2.png)
 
