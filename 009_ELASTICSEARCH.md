@@ -1,0 +1,282 @@
+# ElasticSearch
+
+Необходимо:
+- установить ElasticSearch;
+- создать индекс с одним полем типа "текст";
+- добавить 3 записи в индекс "яблоко", "яблако", "апельсин";
+- написать запрос с условием нечеткого поиска при котором должны находиться и "яблоко" и "яблако".
+
+__Цель:__ 
+Научитесь разворачивать ES в AWS и использовать полнотекстовый нечеткий поиск
+
+__Задания:__ 
+- Развернуть Instance ES – желательно в AWS
+- Создать в ES индекс, в нём должно быть обязательное поле text типа string
+- Создать для индекса pattern
+- Добавить в индекс как минимум 3 документа желательно со следующим содержанием:
+    - «моя мама мыла посуду а кот жевал сосиски»
+    - «рама была отмыта и вылизана котом»
+    - «мама мыла раму»
+- Написать запрос нечеткого поиска к этой коллекции документов ко ключу «мама ела сосиски»
+- Расшарить коллекцию postman (желательно сдавать в таком формате)
+- Прислать ссылку на коллекцию
+
+## 1. Развернуть Instance ES – желательно в AWS
+
+Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о [Portainer](./101_PORTAINER.md)) согласно [https://hub.docker.com/_/elasticsearch](https://hub.docker.com/_/elasticsearch) и [https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
+
+```bash
+version: '2'
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    restart: always
+    container_name: es01
+    environment:
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /media/raid_1_4tb/portainer/data/otus_009/elastic/usr/share/elasticsearch/data:/usr/share/elasticsearch/data
+      - /media/raid_1_4tb/portainer/data/otus_009/elastic/usr/share/elasticsearch/logs:/usr/share/elasticsearch/logs
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elastic
+
+networks:
+  elastic:
+    driver: bridge
+```
+
+
+_Заметка_: во время установки возникала ошибка
+```bash
+.. ElasticsearchException[failed to bind service]; nested: AccessDeniedException
+```
+см. [это](https://techoverflow.net/2020/04/18/how-to-fix-elasticsearch-docker-accessdeniedexception-usr-share-elasticsearch-data-nodes/) и [это](https://stackoverflow.com/questions/55279515/elasticsearchexception-failed-to-bind-service-error)
+
+так как необходимо произвости предварительную настройку монтируемой локальной директории
+
+```bash
+sudo chown -R 1000:1000 /media/raid_1_4tb/portainer/data/otus_009/elastic
+```
+
+Проверка работоспособности http://192.168.102.99:9200/
+
+```bash
+{
+  "name" : "68f8a34ec48c",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "CxRqvWxhQT2f_J-1nhRzvw",
+  "version" : {
+    "number" : "7.9.3",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "c4138e51121ef06a6404866cddc601906fe5c868",
+    "build_date" : "2020-10-16T10:36:16.141335Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.6.2",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+# 
+
+## 1.2. Развернул Kibana в Docker
+
+Исходя из документации [kibana](https://www.elastic.co/guide/en/kibana/current/docker.html)
+
+```bash
+version: '2'
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.3
+    restart: always
+    environment:
+      ELASTICSEARCH_HOSTS: http://192.168.102.99:9200/
+    ports:
+      - 5601:5601
+
+```
+
+Работоспособность по адресу http://192.168.102.99:5601
+
+[! ./009_ELASTICSEARCH.files/3.3.png]
+
+## 2. Создать в ES индекс, в нём должно быть обязательное поле text типа string
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html
+
+```bash
+PUT /otus009_phrases
+{
+  "mappings": {
+    "properties": {
+      "phrase": { "type": "text" }
+    }
+  }
+}
+```
+
+ответ
+
+```bash
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "otus009_phrases"
+}
+```
+
+_Заметка_: в Kibana возможно создать шаблон индекса (Stack Management \ Index Management \ Index Templates), содержащий 
+указанные и последующие настройки.
+
+
+## 3. Создать для индекса pattern
+
+Как я понял паттерны индексов согласно [указанному для Kibana](https://www.elastic.co/guide/en/kibana/current/index-patterns.html)
+необходимы для:
+- Discover: Интерактивного исследования.
+- Visualize: Анализа в диаграммах, таблицах, датчиках, облаках тегов и в ином.
+- Canvas: Демонстрации данных в рабочей панели.
+- Визуализации данных, имеющих геокоординаты, на картах.
+
+_Вопрос_: Это было проделано с помощью Kibana, но "паттерн индекса" кроме как Kibana (или возможно Postman) нужен кому для осуществления какими-то суперзапросами, упрощающими жизнь разрабу или пр?
+
+[! ./009_ELASTICSEARCH.files/3.3.png]
+
+## 4. Добавить в индекс как минимум 3 документа
+
+Желательно со следующим содержанием:
+- «моя мама мыла посуду а кот жевал сосиски»
+- «рама была отмыта и вылизана котом»
+- «мама мыла раму»
+
+```bash
+POST otus009_phrases/_doc/
+{
+  "phrase": "моя мама мыла посуду а кот жевал сосиски"
+}
+
+{
+  "_index" : "otus009_phrases",
+  "_type" : "_doc",
+  "_id" : "d7xShXUBbHgmn5__TYzP",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 0,
+  "_primary_term" : 1
+}
+
+POST otus009_phrases/_doc/
+{
+  "phrase": "рама была отмыта и вылизана котом"
+}
+
+{
+  "_index" : "otus009_phrases",
+  "_type" : "_doc",
+  "_id" : "hrxShXUBbHgmn5__0Yw4",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 1,
+  "_primary_term" : 1
+}
+
+POST otus009_phrases/_doc/
+{
+  "phrase": "мама мыла раму"
+}
+
+{
+  "_index" : "otus009_phrases",
+  "_type" : "_doc",
+  "_id" : "jLxThXUBbHgmn5__Dowd",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 2,
+  "_primary_term" : 1
+}
+
+```
+# 5. Написать запрос нечеткого поиска к этой коллекции документов ко ключу «мама ела сосиски»
+
+```bash
+GET /otus009_phrases/_search
+{
+  "query": {
+    "match": {
+      "phrase": 
+        "мама ела сосиски"
+    }
+  }
+}
+
+```
+
+## 6. Расшарить коллекцию Postman (желательно сдавать в таком формате)
+
+```bash
+{
+  "took" : 1,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.241674,
+    "hits" : [
+      {
+        "_index" : "otus009_phrases",
+        "_type" : "_doc",
+        "_id" : "d7xShXUBbHgmn5__TYzP",
+        "_score" : 1.241674,
+        "_source" : {
+          "phrase" : "моя мама мыла посуду а кот жевал сосиски"
+        }
+      },
+      {
+        "_index" : "otus009_phrases",
+        "_type" : "_doc",
+        "_id" : "jLxThXUBbHgmn5__Dowd",
+        "_score" : 0.5820575,
+        "_source" : {
+          "phrase" : "мама мыла раму"
+        }
+      }
+    ]
+  }
+}
+```
+
+## 7. Прислать ссылку на коллекцию
+
+(./009_ELASTICSEARCH.md#)
