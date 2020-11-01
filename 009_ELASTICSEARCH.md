@@ -1,11 +1,5 @@
 # ElasticSearch
 
-Необходимо:
-- установить ElasticSearch;
-- создать индекс с одним полем типа "текст";
-- добавить 3 записи в индекс "яблоко", "яблако", "апельсин";
-- написать запрос с условием нечеткого поиска при котором должны находиться и "яблоко" и "яблако".
-
 __Цель:__ 
 Научитесь разворачивать ES в AWS и использовать полнотекстовый нечеткий поиск
 
@@ -23,7 +17,7 @@ __Задания:__
 
 ## 1. Развернуть Instance ES – желательно в AWS
 
-Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о [Portainer](./101_PORTAINER.md)) согласно [https://hub.docker.com/_/elasticsearch](https://hub.docker.com/_/elasticsearch) и [https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
+Я использовал `docker-compose.yml` для "Portainer.io" (см. ранее мою заметку о [Portainer](./101_PORTAINER.md)) согласно [https://hub.docker.com/_/elasticsearch](https://hub.docker.com/_/elasticsearch) (Running in Development Mode \ Running in Production Mode) и [https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
 
 ```bash
 version: '2'
