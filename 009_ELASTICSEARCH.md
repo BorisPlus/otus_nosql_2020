@@ -151,6 +151,20 @@ ___Вопрос___: Это было проделано с помощью Kibana,
 - «рама была отмыта и вылизана котом»
 - «мама мыла раму»
 
+## 5. Написать запрос нечеткого поиска к этой коллекции документов ко ключу «мама ела сосиски»
+
+```bash
+GET /otus009_phrases/_search
+{
+  "query": {
+    "match": {
+      "phrase": 
+        "мама ела сосиски"
+    }
+  }
+}
+```
+
 ```bash
 POST otus009_phrases/_doc/
 {
@@ -211,65 +225,16 @@ POST otus009_phrases/_doc/
   "_seq_no" : 2,
   "_primary_term" : 1
 }
-
-```
-## 5. Написать запрос нечеткого поиска к этой коллекции документов ко ключу «мама ела сосиски»
-
-```bash
-GET /otus009_phrases/_search
-{
-  "query": {
-    "match": {
-      "phrase": 
-        "мама ела сосиски"
-    }
-  }
-}
-
 ```
 
 ## 6. Расшарить коллекцию Postman (желательно сдавать в таком формате)
 
 ```bash
-{
-  "took" : 1,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : {
-      "value" : 2,
-      "relation" : "eq"
-    },
-    "max_score" : 1.241674,
-    "hits" : [
-      {
-        "_index" : "otus009_phrases",
-        "_type" : "_doc",
-        "_id" : "d7xShXUBbHgmn5__TYzP",
-        "_score" : 1.241674,
-        "_source" : {
-          "phrase" : "моя мама мыла посуду а кот жевал сосиски"
-        }
-      },
-      {
-        "_index" : "otus009_phrases",
-        "_type" : "_doc",
-        "_id" : "jLxThXUBbHgmn5__Dowd",
-        "_score" : 0.5820575,
-        "_source" : {
-          "phrase" : "мама мыла раму"
-        }
-      }
-    ]
-  }
-}
+sudo snap install postman
 ```
+
+![png](./009_ELASTICSEARCH.files/6.png)
 
 ## 7. Прислать ссылку на коллекцию
 
-см. [выше](https://github.com/BorisPlus/otus_nosql_2020/blob/main/009_ELASTICSEARCH.md#6-расшарить-коллекцию-postman-желательно-сдавать-в-таком-формате)
+см. [https://www.getpostman.com/collections/6fa5ddcb1b986d42bd47](https://www.getpostman.com/collections/6fa5ddcb1b986d42bd47)
