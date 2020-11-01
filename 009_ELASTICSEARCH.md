@@ -239,4 +239,4 @@ sudo snap install postman
 
 см. [https://www.getpostman.com/collections/6fa5ddcb1b986d42bd47](https://www.getpostman.com/collections/6fa5ddcb1b986d42bd47)
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/6fa5ddcb1b986d42bd47)
+или [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/6fa5ddcb1b986d42bd47)
