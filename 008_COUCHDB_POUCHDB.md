@@ -401,7 +401,8 @@ curl -X GET http://192.168.102.99:25984/otus008test
 В админке Fauxton пишет 
 ```text
 Database members can access the database. If no members are defined, the database is public. 
-```[png](./008_COUCHDB_POUCHDB.files/1.1.png)
+```
+![png](./008_COUCHDB_POUCHDB.files/1.1.png)
 
 Нужно удалить роль `_admin` (снизу справа) и база наконец-то станет публичной и не будет требовать логин-пароль (хоть браузером открывай)
 
