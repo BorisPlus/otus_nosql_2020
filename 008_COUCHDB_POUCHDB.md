@@ -290,7 +290,8 @@ services:
 
 ошибка в логе `because the _users database does not exist`
 
-```text[notice] 2020-11-02T07:04:12.759488Z nonode@nohost <0.254.0> -------- rexi_buffer : cluster stable[notice] 2020-11-02T07:04:13.631844Z nonode@nohost <0.324.0> -------- chttpd_auth_cache changes listener died because the _users database does not exist. Create the database to silence this notice.[error]  2020-11-02T07:04:13.632218Z nonode@nohost emulator -------- Error in process <0.551.0> with exit value:
+```text
+    [notice] 2020-11-02T07:04:12.759488Z nonode@nohost <0.254.0> -------- rexi_buffer : cluster stable[notice] 2020-11-02T07:04:13.631844Z nonode@nohost <0.324.0> -------- chttpd_auth_cache changes listener died because the _users database does not exist. Create the database to silence this notice.[error]  2020-11-02T07:04:13.632218Z nonode@nohost emulator -------- Error in process <0.551.0> with exit value:
     {database_does_not_exist,[{mem3_shards,load_shards_from_db,"_users",[{file,"src/mem3_shards.erl"},{line,399}]},{mem3_shards,load_shards_from_disk,1,[{file,"src/mem3_shards.erl"},{line,374}]},{mem3_shards,load_shards_from_disk,2,[{file,"src/mem3_shards.erl"},{line,403}]},{mem3_shards,for_docid,3,[{file,"src/mem3_shards.erl"},{line,96}]},{fabric_doc_open,go,3,[{file,"src/fabric_doc_open.erl"},{line,39}]},{chttpd_auth_cache,ensure_auth_ddoc_exists,2,[{file,"src/chttpd_auth_cache.erl"},{line,198}]},{chttpd_auth_cache,listen_for_changes,1,[{file,"src/chttpd_auth_cache.erl"},{line,145}]}]}
 ```
 [Тут](https://github.com/apache/couchdb-docker/issues/54) говорят так
@@ -303,7 +304,14 @@ curl -X PUT http://192.168.102.99:25984/_users
 Стучимся браузером `http://192.168.102.99:25984/`
 
 ```json
-{"couchdb":"Welcome","version":"3.1.1","git_sha":"ce596c65d","uuid":"f6e1c07a9210e4c252ae1c99acd0ff2c","features":["access-ready","partitioned","pluggable-storage-engines","reshard","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
+{
+  "couchdb":"Welcome",
+  "version":"3.1.1",
+  "git_sha":"ce596c65d",
+  "uuid":"f6e1c07a9210e4c252ae1c99acd0ff2c",
+  "features":["access-ready","partitioned","pluggable-storage-engines","reshard","scheduler"],
+  "vendor":{"name":"The Apache Software Foundation"}
+}
 ```
 
 Все норм.
@@ -432,7 +440,7 @@ curl -X GET http://192.168.102.99:25984/otus008test
 }
 ```
 
-Решено.
+__Ура. Решено.__
 
 
 #### 1.2 как собрать контейнер сразу standalone?
