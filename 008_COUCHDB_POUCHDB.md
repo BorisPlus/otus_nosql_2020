@@ -336,7 +336,9 @@ curl -X PUT http://admin:admin@192.168.102.99:25984/_global_changes
 {"ok":true}
 ```
 
-Log докера (вроде без ошибок)
+Log докера (вроде без ошибок).
+
+<details><summary>спойлер лога</summary>
 
 ```text
 info] 2020-11-02T07:25:03.412848Z nonode@nohost <0.11.0> -------- Application couch_log started on node nonode@nohost
@@ -486,7 +488,9 @@ info] 2020-11-02T07:25:03.412848Z nonode@nohost <0.11.0> -------- Application co
 [notice] 2020-11-02T07:25:18.624531Z nonode@nohost <0.253.0> -------- rexi_buffer : cluster stable
 ```
 
-Но все равно от передачи пары логин пароль никуда не деться
+</details>
+
+Но все равно пока от передачи пары логин пароль никуда не деться
 
 ```bash
 curl -X PUT http://admin:admin@192.168.102.99:25984/otus008test
