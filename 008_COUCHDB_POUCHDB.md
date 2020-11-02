@@ -395,15 +395,19 @@ Log докера (вроде без ошибок).
 
 </details>
 
-Но все равно пока от передачи пары логин пароль никуда не деться
+Создадим тестовую БД
 
 ```bash
 curl -X PUT http://admin:admin@192.168.102.99:25984/otus008test
 {"ok":true}
+```
+
+От передачи пары логин-пароль никуда не деться
+
+```bash
 
 curl -X GET http://192.168.102.99:25984/otus008test
 {"error":"unauthorized","reason":"You are not authorized to access this db."}
-
 ```
 
 В админке Fauxton пишет 
@@ -412,7 +416,7 @@ Database members can access the database. If no members are defined, the databas
 ```
 ![png](./008_COUCHDB_POUCHDB.files/1.1.png)
 
-Нужно удалить роль `_admin` (снизу справа) и база наконец-то станет публичной и не будет требовать логин-пароль (хоть браузером открывай)
+Нужно удалить роль `_admin` (снизу справа), и база __наконец-то станет публичной__ и не будет требовать логин-пароль (хоть браузером открывай)
 
 ```bash
 curl -X GET http://192.168.102.99:25984/otus008test
