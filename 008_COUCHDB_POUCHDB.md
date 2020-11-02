@@ -413,7 +413,23 @@ curl -X GET http://192.168.102.99:25984/otus008test
 ответ
 
 ```json
-{"db_name":"otus008test","purge_seq":"0-g1AAAABPeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCeexAEmGBiD1HwiyEhlwqEtkSKqHKMgCAIT2GV4","update_seq":"2-g1AAAABPeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCeexAEmGBiD1HwiyEhlxqEtkSKqHKMgCAIUbGWA","sizes":{"file":24884,"external":0,"active":0},"props":{},"doc_del_count":0,"doc_count":0,"disk_format_version":8,"compact_running":false,"cluster":{"q":2,"n":1,"w":1,"r":1},"instance_start_time":"0"}
+{
+  "db_name":"otus008test",
+  "purge_seq":"0-g1AAAABPeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCeexAEmGBiD1HwiyEhlwqEtkSKqHKMgCAIT2GV4",
+  "update_seq":"2-g1AAAABPeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCeexAEmGBiD1HwiyEhlxqEtkSKqHKMgCAIUbGWA",
+  "sizes":{
+    "file":24884,
+    "external":0,
+    "active":0
+  },
+  "props":{},
+  "doc_del_count":0,
+  "doc_count":0,
+  "disk_format_version":8,
+  "compact_running":false,
+  "cluster":{"q":2,"n":1,"w":1,"r":1},
+  "instance_start_time":"0"
+}
 ```
 
 Решено.
