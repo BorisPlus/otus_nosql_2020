@@ -214,7 +214,6 @@ fetch()
 Нажимать Sync нет необходимости в силу внесенных мной изменений в JS. Но нажал - все осталось.
 
 ## Прислать либо сохраненный из chrome (уже с прочитанной фамилией) index.html, либо опубликовать его, к примеру, на githubpages и прислать ссылку.
-
 [PouchDB.html](./008_COUCHDB_POUCHDB.files/PouchDB.html)
 ![png](./008_COUCHDB_POUCHDB.files/PouchDB.png)
 
@@ -291,13 +290,9 @@ services:
 
 ошибка в логе `because the _users database does not exist`
 
-```text
-[notice] 2020-11-02T07:04:12.759488Z nonode@nohost <0.254.0> -------- rexi_buffer : cluster stable
-[notice] 2020-11-02T07:04:13.631844Z nonode@nohost <0.324.0> -------- chttpd_auth_cache changes listener died because the _users database does not exist. Create the database to silence this notice.
-[error]  2020-11-02T07:04:13.632218Z nonode@nohost emulator -------- Error in process <0.551.0> with exit value:
+```text[notice] 2020-11-02T07:04:12.759488Z nonode@nohost <0.254.0> -------- rexi_buffer : cluster stable[notice] 2020-11-02T07:04:13.631844Z nonode@nohost <0.324.0> -------- chttpd_auth_cache changes listener died because the _users database does not exist. Create the database to silence this notice.[error]  2020-11-02T07:04:13.632218Z nonode@nohost emulator -------- Error in process <0.551.0> with exit value:
     {database_does_not_exist,[{mem3_shards,load_shards_from_db,"_users",[{file,"src/mem3_shards.erl"},{line,399}]},{mem3_shards,load_shards_from_disk,1,[{file,"src/mem3_shards.erl"},{line,374}]},{mem3_shards,load_shards_from_disk,2,[{file,"src/mem3_shards.erl"},{line,403}]},{mem3_shards,for_docid,3,[{file,"src/mem3_shards.erl"},{line,96}]},{fabric_doc_open,go,3,[{file,"src/fabric_doc_open.erl"},{line,39}]},{chttpd_auth_cache,ensure_auth_ddoc_exists,2,[{file,"src/chttpd_auth_cache.erl"},{line,198}]},{chttpd_auth_cache,listen_for_changes,1,[{file,"src/chttpd_auth_cache.erl"},{line,145}]}]}
 ```
-
 [Тут](https://github.com/apache/couchdb-docker/issues/54) говорят так
 
 ```bash
@@ -341,98 +336,52 @@ Log докера (вроде без ошибок).
 <details><summary>спойлер лога</summary>
 
 ```text
-info] 2020-11-02T07:25:03.412848Z nonode@nohost <0.11.0> -------- Application couch_log started on node nonode@nohost
-
+[info] 2020-11-02T07:25:03.412848Z nonode@nohost <0.11.0> -------- Application couch_log started on node nonode@nohost
 [info] 2020-11-02T07:25:03.427243Z nonode@nohost <0.11.0> -------- Application folsom started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.476586Z nonode@nohost <0.11.0> -------- Application couch_stats started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.476638Z nonode@nohost <0.11.0> -------- Application khash started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.486732Z nonode@nohost <0.11.0> -------- Application couch_event started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.486774Z nonode@nohost <0.11.0> -------- Application hyper started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.495927Z nonode@nohost <0.11.0> -------- Application ibrowse started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.504509Z nonode@nohost <0.11.0> -------- Application ioq started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.504544Z nonode@nohost <0.11.0> -------- Application mochiweb started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.511107Z nonode@nohost <0.216.0> -------- Preflight check: Asserting Admin Account
-
 [info] 2020-11-02T07:25:03.515556Z nonode@nohost <0.216.0> -------- Apache CouchDB 3.1.1 is starting.
-
 [info] 2020-11-02T07:25:03.515621Z nonode@nohost <0.217.0> -------- Starting couch_sup
-
 [info] 2020-11-02T07:25:03.596502Z nonode@nohost <0.216.0> -------- Apache CouchDB has started. Time to relax.
-
 [info] 2020-11-02T07:25:03.600326Z nonode@nohost <0.11.0> -------- Application couch started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.600462Z nonode@nohost <0.11.0> -------- Application ets_lru started on node nonode@nohost
-
 [notice] 2020-11-02T07:25:03.623446Z nonode@nohost <0.249.0> -------- rexi_server : started servers
-
 [notice] 2020-11-02T07:25:03.627526Z nonode@nohost <0.253.0> -------- rexi_buffer : started servers
-
 [info] 2020-11-02T07:25:03.627693Z nonode@nohost <0.11.0> -------- Application rexi started on node nonode@nohost
-
 [notice] 2020-11-02T07:25:03.734674Z nonode@nohost <0.283.0> -------- mem3_reshard_dbdoc start init()
-
 [notice] 2020-11-02T07:25:03.742756Z nonode@nohost <0.285.0> -------- mem3_reshard start init()
-
 [notice] 2020-11-02T07:25:03.742844Z nonode@nohost <0.286.0> -------- mem3_reshard db monitor <0.286.0> starting
-
 [notice] 2020-11-02T07:25:03.746547Z nonode@nohost <0.285.0> -------- mem3_reshard starting reloading jobs
-
 [notice] 2020-11-02T07:25:03.746641Z nonode@nohost <0.285.0> -------- mem3_reshard finished reloading jobs
-
 [info] 2020-11-02T07:25:03.747695Z nonode@nohost <0.11.0> -------- Application mem3 started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.747774Z nonode@nohost <0.11.0> -------- Application fabric started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.790699Z nonode@nohost <0.11.0> -------- Application chttpd started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.808122Z nonode@nohost <0.11.0> -------- Application couch_index started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.808153Z nonode@nohost <0.11.0> -------- Application couch_mrview started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.808311Z nonode@nohost <0.11.0> -------- Application couch_plugins started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.907855Z nonode@nohost <0.11.0> -------- Application couch_replicator started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.922330Z nonode@nohost <0.11.0> -------- Application couch_peruser started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.939589Z nonode@nohost <0.11.0> -------- Application ddoc_cache started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.953713Z nonode@nohost <0.11.0> -------- Application dreyfus started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.976710Z nonode@nohost <0.11.0> -------- Application global_changes started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.976739Z nonode@nohost <0.11.0> -------- Application jiffy started on node nonode@nohost
-
 [info] 2020-11-02T07:25:03.990750Z nonode@nohost <0.11.0> -------- Application jwtf started on node nonode@nohost
-
 [info] 2020-11-02T07:25:04.010613Z nonode@nohost <0.11.0> -------- Application ken started on node nonode@nohost
-
 [info] 2020-11-02T07:25:04.026336Z nonode@nohost <0.11.0> -------- Application mango started on node nonode@nohost
-
 [info] 2020-11-02T07:25:04.036817Z nonode@nohost <0.11.0> -------- Application setup started on node nonode@nohost
-
 [info] 2020-11-02T07:25:04.073180Z nonode@nohost <0.11.0> -------- Application smoosh started on node nonode@nohost
-
 [info] 2020-11-02T07:25:04.073298Z nonode@nohost <0.11.0> -------- Application snappy started on node nonode@nohost
-
 [info] 2020-11-02T07:25:04.073334Z nonode@nohost <0.11.0> -------- Application recon started on node nonode@nohost
-
 [notice] 2020-11-02T07:25:08.833653Z nonode@nohost <0.339.0> -------- couch_replicator_clustering : cluster stable
-
 [notice] 2020-11-02T07:25:08.843381Z nonode@nohost <0.366.0> -------- Started replicator db changes listener <0.473.0>
-
 [info] 2020-11-02T07:25:08.844682Z nonode@nohost <0.475.0> -------- open_result error {not_found,no_db_file} for _replicator
-
 [notice] 2020-11-02T07:25:18.623612Z nonode@nohost <0.249.0> -------- rexi_server : cluster stable
-
 [notice] 2020-11-02T07:25:18.624531Z nonode@nohost <0.253.0> -------- rexi_buffer : cluster stable
 ```
 
@@ -452,8 +401,7 @@ curl -X GET http://192.168.102.99:25984/otus008test
 В админке Fauxton пишет 
 ```text
 Database members can access the database. If no members are defined, the database is public. 
-```
-[png](./008_COUCHDB_POUCHDB.files/1.1.png)
+```[png](./008_COUCHDB_POUCHDB.files/1.1.png)
 
 Нужно удалить роль `_admin` (снизу справа) и база наконец-то станет публичной и не будет требовать логин-пароль (хоть браузером открывай)
 
