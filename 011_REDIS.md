@@ -45,7 +45,7 @@ pip3 install -r ./011.files/req.txt
 
 ## Время на вставку даннных
 
-[Cкрипт](,/011.files/loader.py)
+[Cкрипт](011.files/loader.py)
 
 ```bash
 python3 loader.py 
