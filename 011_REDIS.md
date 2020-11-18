@@ -56,7 +56,7 @@ services:
  - "ID" ("INTEGER", "Код"),
  - "TypeOfTransport" ("DICTIONARY", "Вид транспорта").
  
-## Поставиьт зависимости
+## Поставить зависимости
 
 ```bash
 pip3 install -r ./011.files/req.txt 
