@@ -85,3 +85,15 @@ Upload json as complex structure.
 
 ## Время на вставку выборку
 
+
+Как строка
+
+[Cкрипт загрузки JSON как строки](011.files/upload_as_string.py)
+
+```bash
+python3 upload_as_string.py
+
+Upload json as true-string.
+         Were load: 1022 units
+         Time left: XXX ms
+```

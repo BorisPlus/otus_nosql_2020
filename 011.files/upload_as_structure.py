@@ -4,6 +4,8 @@ import time
 
 if __name__ == '__main__':
 
+    DEBUG_UPLOAD_LIMIT = 250
+
     r = redis.StrictRedis(host='localhost', port=6379, db=4)
 
     print('Upload json as complex structure.')
@@ -27,9 +29,11 @@ if __name__ == '__main__':
     with open('data.json', encoding='cp1251') as input_file:
         test_data = json.load(input_file)
         count = len(test_data)
+        index = 0  # не надо эту строку в коде, это для интерпритатора PyCharm
+
         start = time.time()
 
-        for data in test_data:
+        for index, data in enumerate(test_data):
             for key, value in data.items():
                 if key in keys_for_list:
                     continue
@@ -60,6 +64,9 @@ if __name__ == '__main__':
             #
             r.save()
 
+            if DEBUG_UPLOAD_LIMIT and index >= DEBUG_UPLOAD_LIMIT:
+                break
+
         end = time.time()
-        print('\t', 'Were upload:', count, 'units')
+        print('\t', 'Were upload:', index, 'units')
         print('\t', 'Time left:', end - start, 'ms')
