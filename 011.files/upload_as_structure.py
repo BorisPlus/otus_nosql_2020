@@ -57,6 +57,8 @@ if __name__ == '__main__':
                     # Внимание: тут тратится время на upper и ord(value[0])
                     value = key.upper()
                     r.zadd('object:%s' % data.get("system_object_id"), {value: ord(value[0])})
+            #
+            r.save()
 
         end = time.time()
         print('\t', 'Were upload:', count, 'units')

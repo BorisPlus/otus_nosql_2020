@@ -13,6 +13,7 @@ if __name__ == '__main__':
         start = time.time()
         for index, data in enumerate(test_data):
             r.set('data:%s' %index, str(data).lower())
+            r.save()
         end = time.time()
         print('\t', 'Were upload:',  count, 'units')
         print('\t', 'Time left:',  end-start, 'ms')
