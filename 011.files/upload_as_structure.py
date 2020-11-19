@@ -6,7 +6,7 @@ if __name__ == '__main__':
 
     r = redis.StrictRedis(host='localhost', port=6379, db=4)
 
-    print('Load json as complex structure.')
+    print('Upload json as complex structure.')
     print('\t', 'hset - https://redis.io/commands/hset')
     # TODO: https://pythontic.com/database/redis/sorted%20set%20-%20add%20and%20remove%20elements
     print('\t', 'zadd - https://redis.io/commands/zadd')
@@ -59,5 +59,5 @@ if __name__ == '__main__':
                     r.zadd('object:%s' % data.get("system_object_id"), {value: ord(value[0])})
 
         end = time.time()
-        print('\t', 'Were load:', count, 'units')
+        print('\t', 'Were upload:', count, 'units')
         print('\t', 'Time left:', end - start, 'ms')
