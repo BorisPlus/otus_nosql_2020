@@ -50,7 +50,6 @@ if __name__ == '__main__':
                     r.lpush('object:%s:%s' % (data.get("system_object_id"), key.lower()), item.strip())
 
             # для zset путь будет упорядоченное по алфавиту по первым бувам (НЕ лексикографическое) название улиц маршрута
-            # r.zadd('route', {key: score}, xx=False)
 
             zset_keys = ('TrackOfFollowing', )
             if key in zset_keys:
@@ -62,36 +61,3 @@ if __name__ == '__main__':
         end = time.time()
         print('\t', 'Were load:', count, 'units')
         print('\t', 'Time left:', end - start, 'ms')
-
-        #
-        # with open('data.json', encoding='cp1251') as input_file:
-        #     test_data = json.load(input_file)
-        #     start = time.time()
-        #     for data in test_data:
-        #         id = data.get("ID")
-        #
-        #         key = data.get("system_object_id")
-        #         score = data.get("system_object_id")
-        #         try:
-        #             r.zadd('route', {key: score}, xx=False)
-        #         except redis.exceptions.ResponseError as e:
-        #             # print(data.get("ID"))
-        #             # print(data.get("RouteNumber"))
-        #             pass
-        #
-        #     end = time.time()
-        #     print('ZADD:', end - start, 'ms')
-        #
-        # with open('data.json', encoding='cp1251') as input_file:
-        #     test_data = json.load(input_file)
-        #     start = time.time()
-        #     for data in test_data:
-        #         # print(data.get("RouteNumber"))
-        #         try:
-        #             # r.lpush('route', data.get("RouteNumber"))
-        #             r.rpush('RouteNumber', data.get("RouteNumber"), 0)
-        #         except redis.exceptions.ResponseError as e:
-        #             print('ResponseError ' + data.get("RouteNumber"))
-        #
-        #     end = time.time()
-        #     print('LPUSH:', end - start, 'ms')

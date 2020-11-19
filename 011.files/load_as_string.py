@@ -16,4 +16,3 @@ if __name__ == '__main__':
         end = time.time()
         print('\t', 'Were load:',  count, 'units')
         print('\t', 'Time left:',  end-start, 'ms')
-
