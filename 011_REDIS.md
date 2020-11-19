@@ -14,11 +14,6 @@
 - предложено рабочее решение, но не устранены недостатки, указанные преподавателем - минус 1 балл
 Рекомендуем сдать до: 27.11.2020
 
-/usr/local/etc/redis/redis.conf
-
-## 
-
-
 ## Json Data
 
 __Ремарка__: cложно найти действительно хороший Json для задачи. 
@@ -29,7 +24,7 @@ __Ремарка__: cложно найти действительно хорош
 так как имеется то или иное преобразование, что я олтметил фразой в коде "# Внимание: тут тратится время на ...".
 В рамках данного исследования можно этим пренебречь или преобразовать в "хороший" для эксперимента Json?
 
-[https://data.gov.ru/opendata/7704786030-municipalroutesregister](Реестр муниципальных маршрутов регулярных перевозок пассажиров и багажа автомобильным и наземным электрическим транспортом в городе Москве) и [(данные json(60.29 МБ)](https://data.gov.ru/sites/default/files/opendata/7704786030-MunicipalRoutesRegister/data-2017-07-18T00-00-00-structure-2017-07-18T00-00-00.json)
+[Реестр муниципальных маршрутов регулярных перевозок пассажиров и багажа автомобильным и наземным электрическим транспортом в городе Москве](https://data.gov.ru/opendata/7704786030-municipalroutesregister) и [json-данные ~ 60 МБ](https://data.gov.ru/sites/default/files/opendata/7704786030-MunicipalRoutesRegister/data-2017-07-18T00-00-00-structure-2017-07-18T00-00-00.json)
 
 Структура:
  - "system_object_id":("STRING"),
@@ -56,7 +51,7 @@ pip3 install -r ./011.files/req.txt
 
 Как строка
 
-[Cкрипт](011.files/load_as_string.py)
+[Cкрипт загрузки JSON как строки](011.files/load_as_string.py)
 
 ```bash
 python3 load_as_string.py
@@ -68,7 +63,7 @@ Load json as true-string.
 
 Как сложная структура из hset, zset, list
 
-[Cкрипт](011.files/load_as_structure.py)
+[Cкрипт загрузки JSON как сложной структуры](011.files/load_as_structure.py)
 
 ```bash
 python3 load_as_structure.py
