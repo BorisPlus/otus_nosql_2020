@@ -15,10 +15,10 @@ if __name__ == '__main__':
         start = time.time()
         index = 0  # не надо эту строку в коде, это для интерпритатора PyCharm
         for index, data in enumerate(test_data):
-            r.set('data:%s' %index, str(data).lower())
+            r.set('data:%s' % index, str(data).lower())
             r.save()
-            if DEBUG_UPLOAD_LIMIT and index > DEBUG_UPLOAD_LIMIT:
+            if DEBUG_UPLOAD_LIMIT and index >= DEBUG_UPLOAD_LIMIT:
                 break
         end = time.time()
-        print('\t', 'Were upload:',  index, 'units')
-        print('\t', 'Time left:',  end-start, 'ms')
+        print('\t', 'Were upload:', index + 1, 'units')
+        print('\t', 'Time left:', end - start, 'ms')

@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
             # для zset путь будет упорядоченное по алфавиту по первым бувам (НЕ лексикографическое) название улиц маршрута
 
-            zset_keys = ('TrackOfFollowing', )
+            zset_keys = ('TrackOfFollowing',)
             if key in zset_keys:
                 for item in data.get('value').split(' - '):
                     # Внимание: тут тратится время на upper и ord(value[0])
@@ -68,5 +68,5 @@ if __name__ == '__main__':
                 break
 
         end = time.time()
-        print('\t', 'Were upload:', index, 'units')
+        print('\t', 'Were upload:', index + 1, 'units')
         print('\t', 'Time left:', end - start, 'ms')

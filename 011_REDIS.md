@@ -57,17 +57,20 @@ pip3 install -r ./011.files/req.txt
 
 [Cкрипт загрузки JSON как строки](011.files/upload_as_string.py)
 
+Запустил для первых 251 записи JSON-набора.
 ```bash
 python3 upload_as_string.py
 
 Upload json as true-string.
-         Were load: 1022 units
-         Time left: XXX ms
+         Were upload: 251 units
+         Time left: 239.38326907157898 ms
 ```
 
 Как сложная структура из hset, zset, list
 
 [Cкрипт загрузки JSON как сложной структуры](011.files/upload_as_structure.py)
+
+Запустил для первых 251 записи JSON-набора.
 
 ```bash
 python3 upload_as_structure.py
@@ -83,17 +86,40 @@ Upload json as complex structure.
 Видим, что данные как строки вставляются (быстрее/медленнее), чем как структуры
 
 
-## Время на вставку выборку
+## Время на выборку
 
-
-Как строка
-
-[Cкрипт загрузки JSON как строки](011.files/upload_as_string.py)
+[Какие ключи у строк](011.files/load_string_keys.py)
 
 ```bash
-python3 upload_as_string.py
-
-Upload json as true-string.
-         Were load: 1022 units
-         Time left: XXX ms
+python3 load_string_keys.py
 ```
+<details>
+<summary>Load strings.</summary>
+b'data:15'
+b'data:124'
+b'data:18'
+b'data:86'
+b'data:150'
+b'data:181'
+b'data:41'
+b'data:173'
+b'data:23'
+b'data:141'
+b'data:220'
+b'data:56'
+b'data:26'
+b'data:17'
+b'data:51'
+b'data:167'
+b'data:144'
+b'data:143'
+b'data:107'
+b'data:146'
+b'data:32'
+b'data:207'
+b'data:214'
+b'data:12'
+b'data:152'
+b'data:4'
+
+</details>
