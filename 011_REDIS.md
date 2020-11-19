@@ -79,11 +79,12 @@ Upload json as complex structure.
          hset - https://redis.io/commands/hset
          zadd - https://redis.io/commands/zadd
          list - https://redis.io/commands/lpush
-         Were load: 1022 units
-         Time left: XXX ms
+         Were upload: 251 units
+         Time left: 232.33045530319214 ms
+
 ```
 
-Видим, что данные как строки вставляются (быстрее/медленнее), чем как структуры
+Видим, что на первых 251 данные как строки вставляются медленнее, чем как "распознанных" данных как структуры.
 
 
 ## Время на выборку
