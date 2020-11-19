@@ -3,9 +3,7 @@
 Домашнее задание. Необходимо:
 - сохранить большой жсон (~20МБ) в виде разных структур:
     - строка 
-    - hset 
-    - zset 
-    - list
+    - сложная структура из hset, zset, list
 - протестировать скорость сохранения и чтения
 - предоставить отчет
 
@@ -18,7 +16,18 @@
 
 /usr/local/etc/redis/redis.conf
 
+## 
+
+
 ## Json Data
+
+__Ремарка__: cложно найти действительно хороший Json для задачи. 
+Чтобы честно замерит время вставки данных Json-набор не должен предполагать проведения с ним манипуляций.
+С выбранным мной набором можно было б провести его конвертирований в тот вид Json, который просто потребовал бы
+непосредственно только вставки. Но я не стал. (Могу сделать, если надо).
+В скриптах вставки данных я указал на те места, в который процеесорное время отнимается самим скриптом, 
+так как имеется то или иное преобразование, что я олтметил фразой в коде "# Внимание: тут тратится время на ...".
+В рамках данного исследования можно этим пренебречь или преобразовать в "хороший" для эксперимента Json?
 
 [https://data.gov.ru/opendata/7704786030-municipalroutesregister](Реестр муниципальных маршрутов регулярных перевозок пассажиров и багажа автомобильным и наземным электрическим транспортом в городе Москве) и [(данные json(60.29 МБ)](https://data.gov.ru/sites/default/files/opendata/7704786030-MunicipalRoutesRegister/data-2017-07-18T00-00-00-structure-2017-07-18T00-00-00.json)
 
@@ -45,19 +54,32 @@ pip3 install -r ./011.files/req.txt
 
 ## Время на вставку даннных
 
-[Cкрипт](011.files/loader.py)
+Как строка
+
+[Cкрипт](011.files/load_as_string.py)
 
 ```bash
-python3 loader.py 
+python3 load_as_string.py
 
-    string
-    STRING: 0.30866003036499023 ms
-    https://redis.io/commands/hset
-    HSET: 0.30942511558532715 ms
-    https://redis.io/commands/zadd
-    ZADD: 0.3056464195251465 ms
-    https://redis.io/commands/lpush
-    LPUSH: 0.32759571075439453 ms
+Load json as true-string.
+         Were load: 1022 units
+         Time left: 1.8824961185455322 ms
 ```
 
+Как сложная структура из hset, zset, list
+
+[Cкрипт](011.files/load_as_structure.py)
+
+```bash
+python3 load_as_structure.py
+
+Load json as complex structure.
+         hset - https://redis.io/commands/hset
+         zadd - https://redis.io/commands/zadd
+         list - https://redis.io/commands/lpush
+         Were load: 1022 units
+         Time left: 4.957089900970459 ms
+```
+
+Вилим строка вставляется быстрее
 
