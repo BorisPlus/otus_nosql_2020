@@ -54,24 +54,24 @@ pip3 install -r ./011.files/req.txt
 
 Как строка
 
-[Cкрипт загрузки JSON как строки](011.files/load_as_string.py)
+[Cкрипт загрузки JSON как строки](011.files/upload_as_string.py)
 
 ```bash
-python3 load_as_string.py
+python3 upload_as_string.py
 
-Load json as true-string.
+Upload json as true-string.
          Were load: 1022 units
          Time left: 1.8824961185455322 ms
 ```
 
 Как сложная структура из hset, zset, list
 
-[Cкрипт загрузки JSON как сложной структуры](011.files/load_as_structure.py)
+[Cкрипт загрузки JSON как сложной структуры](011.files/upload_as_structure.py)
 
 ```bash
-python3 load_as_structure.py
+python3 upload_as_structure.py
 
-Load json as complex structure.
+Upload json as complex structure.
          hset - https://redis.io/commands/hset
          zadd - https://redis.io/commands/zadd
          list - https://redis.io/commands/lpush
