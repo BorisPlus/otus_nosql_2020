@@ -61,7 +61,7 @@ python3 upload_as_string.py
 
 Upload json as true-string.
          Were load: 1022 units
-         Time left: 1.8824961185455322 ms
+         Time left: XXX ms
 ```
 
 Как сложная структура из hset, zset, list
@@ -76,10 +76,10 @@ Upload json as complex structure.
          zadd - https://redis.io/commands/zadd
          list - https://redis.io/commands/lpush
          Were load: 1022 units
-         Time left: 4.957089900970459 ms
+         Time left: XXX ms
 ```
 
-Видим, что данные как строки вставляются быстрее, чем как структуры
+Видим, что данные как строки вставляются (быстрее/медленнее), чем как структуры
 
 
 ## Время на вставку выборку
