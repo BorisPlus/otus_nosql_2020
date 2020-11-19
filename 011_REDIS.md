@@ -25,7 +25,9 @@ __Ремарка__: cложно найти действительно хорош
 
 __Вопрос__: В рамках данного исследования можно пренебречь вышеописанным или все же преобразовать в "хороший" для чистого эксперимента по вставке Json?
 
-[Реестр муниципальных маршрутов регулярных перевозок пассажиров и багажа автомобильным и наземным электрическим транспортом в городе Москве](https://data.gov.ru/opendata/7704786030-municipalroutesregister) и [json-данные ~ 60 МБ](https://data.gov.ru/sites/default/files/opendata/7704786030-MunicipalRoutesRegister/data-2017-07-18T00-00-00-structure-2017-07-18T00-00-00.json)
+[Реестр муниципальных маршрутов регулярных перевозок пассажиров и багажа автомобильным и наземным электрическим транспортом в городе Москве](https://data.gov.ru/opendata/7704786030-municipalroutesregister)
+ и [json-данные ~ 60 МБ](https://data.gov.ru/sites/default/files/opendata/7704786030-MunicipalRoutesRegister/data-2017-07-18T00-00-00-structure-2017-07-18T00-00-00.json)
+ ([зеркало в текущем репозитории](011.files/data.json))
 
 Структура:
  - "system_object_id":("STRING"),
