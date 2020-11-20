@@ -53,24 +53,57 @@ pip3 install -r ./011.files/req.txt
 
 ## Время на вставку даннных
 
-Как строка
+### Как строка 
+
+Импорт происходит в формате 
+```bash
+obj:<ID> <STRINGIFY JSON-row>
+```
 
 [Cкрипт загрузки JSON как строки](011.files/upload_as_string.py)
 
-Запустил для первых 251 записи JSON-набора.
+Запустил для первых 1000 записей JSON-набора.
 ```bash
 python3 upload_as_string.py
 
 Upload json as true-string.
-         Were upload: 251 units
-         Time left: 239.38326907157898 ms
+         Were upload: 1000 units
+         Time left: 291.31338763237 sec
 ```
 
-Как сложная структура из hset, zset, list
+## Как сложная структура 
+
+Структура из hset, zset, list (ключам дал название, чтоб не путаться)
+
+```bash
+object:<ID>:hset
+     system_object_id
+     routenumber
+     global_id
+     id
+     id_en
+     signature_date
+     routename
+     routename_en
+     trackoffollowing
+     trackoffollowing_en
+     typeoftransport
+     typeoftransport_en
+     carriername_en
+object:<ID>:list__reverseroutetrack
+object:<ID>:list__reverseroutetrack_en
+object:<ID>:list__trackoffollowing
+object:<ID>:list__trackoffollowing_en
+object:<ID>:list__directroutetrack
+object:<ID>:list__directroutetrack_en
+object:<ID>:list__reversetrackoffollowing
+object:<ID>:list__reversetrackoffollowing_en
+object:<ID>:zset__trackoffollowing
+```
 
 [Cкрипт загрузки JSON как сложной структуры](011.files/upload_as_structure.py)
 
-Запустил для первых 251 записи JSON-набора.
+Запустил для первых 1000 записей JSON-набора.
 
 ```bash
 python3 upload_as_structure.py
@@ -79,17 +112,21 @@ Upload json as complex structure.
          hset - https://redis.io/commands/hset
          zadd - https://redis.io/commands/zadd
          list - https://redis.io/commands/lpush
-         Were upload: 251 units
-         Time left: 232.33045530319214 ms
+         Were upload: 1000 units
+         Time left: 1703.8530101776123 sec
+
 
 ```
 
-Видим, что на первых 251 данные как строки вставляются медленнее, чем как "распознанных" данных как структуры.
+### Вывод
 
+Видим, что первые 1000 json-записей данных как строки вставляются быстрее (291 сек), чем "распознанных" как структуры данные (1703 сек).
 
-## Время на выборку
+## Критерии на выборку
 
-[Какие ключи у строк](011.files/load_string_keys.py)
+### У строк
+
+[Какие ключи у строк](011.files/load_string.py)
 
 ```bash
 python3 load_string_keys.py
@@ -122,5 +159,39 @@ b'data:214'
 b'data:12'
 b'data:152'
 b'data:4'
-
+...
 </details>
+
+Выборка всех данных по всем ключам
+```bash
+Time left 0.41986918449401855 sec
+Units count: 1000
+```
+
+__Замечание__: не могу понять, как искать именно по строковым значенеиям, по значениям ключей
+
+### У структур
+
+забор хешей происходит медленнее 
+
+Выборка по хешам:
+```bash
+Time left for get all hset-substructures for ALL rows 0.6036486625671387 sec
+units: 1000
+```
+
+Выборка по спискам (7624 - столько нод, суммарно элементов во всех списках):
+```bash
+Time left for get all lists: 16.734337091445923 sec
+Units count: 7624
+```
+
+Выборка из упорядоченных:
+```bash
+Time left for get values from zset: 0.522514820098877 sec
+Units count: 1000
+```
+### Вывод
+
+Видим, что первые 1000 json-записей данных как строки забираются быстрее (0.4 сек), 
+чем "распознанные" как структуры данные (хеш-таблицы - 0.6 сек, списки - 16.7 сек, упорядоченные множества - 0.5 сек, ).
