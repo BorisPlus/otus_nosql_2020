@@ -37,36 +37,36 @@ if __name__ == '__main__':
         for h_key in unit[1]:
             print('\t', '\t', h_key)
 
-    # print()
-    # print('\t', 'hset keys values:')
-    # k_v = enumerate(r.keys('*:hset'))
-    # v_indx = 0
-    # start = time.time()
-    # for v_indx, v in k_v:
-    #     units = r.hscan(v, match='*')
-    #     # pprint.pprint(units[0])
-    #     # for unit in units[1]:
-    #     #     print('\t', '\t', unit, units[1].get(unit).decode('utf8'), )
-    # end = time.time()
-    # print()
-    #
-    # print('Time left for get all keys for ALL hset-substructures', end - start, 'sec')
-    # print('Units count:', v_indx+1)
+    print()
+    print('\t', 'hset keys values:')
+    k_v = enumerate(r.keys('*:hset'))
+    v_indx = 0
+    start = time.time()
+    for v_indx, v in k_v:
+        units = r.hscan(v, match='*')
+        # pprint.pprint(units[0])
+        # for unit in units[1]:
+        #     print('\t', '\t', unit, units[1].get(unit).decode('utf8'), )
+    end = time.time()
+    print()
+
+    print('Time left for get all keys for ALL hset-substructures', end - start, 'sec')
+    print('Units count:', v_indx+1)
 
     # LIST
 
-    # print()
-    # print('\t', 'list keys values:')
-    # k_v = enumerate(r.keys('*:list__*'))
-    # v_indx = 0
-    # start = time.time()
-    # for v_indx, v in k_v:
-    #     units = r.lrange(v, 0, -1)
-    # end = time.time()
-    # print()
-    #
-    # print('Time left for get values from lists:', end - start, 'sec')
-    # print('Units count:', v_indx + 1)
+    print()
+    print('\t', 'list keys values:')
+    k_v = enumerate(r.keys('*:list__*'))
+    v_indx = 0
+    start = time.time()
+    for v_indx, v in k_v:
+        units = r.lrange(v, 0, -1)
+    end = time.time()
+    print()
+
+    print('Time left for get values from lists:', end - start, 'sec')
+    print('Units count:', v_indx + 1)
 
     # ZSET
 
