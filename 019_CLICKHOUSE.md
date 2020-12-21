@@ -203,7 +203,7 @@ maintenance_window:
 ```
 </details>
 
-Кластер теперь создан:
+Кластер __теперь__ создан:
 
 ```bash
 yc ––cluster-name <CLUSTER_NAME> database list
@@ -218,7 +218,7 @@ yc clickhouse --cluster-name <CLUSTER_NAME> database list
 +-------------+----------------------+
 |    NAME     |      CLUSTER ID      |
 +-------------+----------------------+
-| development | <CLUSTER_ID> |
+| development | <CLUSTER_ID>         |
 +-------------+----------------------+
 ```
 
