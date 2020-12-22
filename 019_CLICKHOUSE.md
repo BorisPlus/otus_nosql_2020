@@ -663,12 +663,263 @@ of development.visits FOR VALUES
 
 ### Сравнение скорости CH vs. PG
 
-Сравнение производил не корректно в том плане, что:
-- скорость вставки не сравнивал
-- сравнивал скорость только на крайнюю в отчете агрегацию по партициям 
-- и Clickhouse все таки работает в "родном" облаке, а Postgres на простой VPS.
+Создал PG-кластер на Яндексе. Минимальный.
 
-__ВНИМАНИЕ__: данные __ПОКА грузятся__ в Postgres, по окончании произведу подсчет времени на выбрку на Python-скрите для следующего
+https://cloud.yandex.ru/docs/managed-postgresql/operations/connect#configuring-an-ssl-certificate
+
+
+```bash
+yc managed-postgresql cluster create \
+     --name mypg \
+     --environment production \
+     --network-name default \
+     --resource-preset s2.micro \
+     --host zone-id=ru-central1-c,subnet-id=b0ch9cjskbb29h0qdnpb \
+     --disk-type network-ssd \
+     --disk-size 10GB \
+     --user name=user1,password=password1 \
+     --database name=db1,owner=user1
+```
+
+```text
+done (4m50s)
+id: c9qhkok519g1ioqq6u0f
+folder_id: b1gujct7m4g2klh9sne2
+created_at: "2020-12-22T19:22:04.793341Z"
+name: mypg
+environment: PRODUCTION
+monitoring:
+- name: Console
+  description: Console charts
+  link: https://console.cloud.yandex.ru/folders/b1gujct7m4g2klh9sne2/managed-postgresql/cluster/c9qhkok519g1ioqq6u0f?section=monitoring
+config:
+  version: "10"
+  postgresql_config_10:
+    effective_config:
+      max_connections: "400"
+      shared_buffers: "2147483648"
+      temp_buffers: "8388608"
+      max_prepared_transactions: "0"
+      work_mem: "4194304"
+      maintenance_work_mem: "67108864"
+      replacement_sort_tuples: "150000"
+      autovacuum_work_mem: "-1"
+      temp_file_limit: "-1"
+      vacuum_cost_delay: "0"
+      vacuum_cost_page_hit: "1"
+      vacuum_cost_page_miss: "10"
+      vacuum_cost_page_dirty: "20"
+      vacuum_cost_limit: "200"
+      bgwriter_delay: "200"
+      bgwriter_lru_maxpages: "100"
+      bgwriter_lru_multiplier: 2
+      backend_flush_after: "0"
+      old_snapshot_threshold: "-1"
+      wal_level: WAL_LEVEL_LOGICAL
+      synchronous_commit: SYNCHRONOUS_COMMIT_ON
+      checkpoint_timeout: "300000"
+      checkpoint_completion_target: 0.5
+      max_wal_size: "1073741824"
+      min_wal_size: "536870912"
+      max_standby_streaming_delay: "30000"
+      default_statistics_target: "1000"
+      constraint_exclusion: CONSTRAINT_EXCLUSION_PARTITION
+      cursor_tuple_fraction: 0.1
+      from_collapse_limit: "8"
+      join_collapse_limit: "8"
+      force_parallel_mode: FORCE_PARALLEL_MODE_OFF
+      client_min_messages: LOG_LEVEL_NOTICE
+      log_min_messages: LOG_LEVEL_WARNING
+      log_min_error_statement: LOG_LEVEL_ERROR
+      log_min_duration_statement: "-1"
+      log_checkpoints: false
+      log_connections: false
+      log_disconnections: false
+      log_duration: false
+      log_error_verbosity: LOG_ERROR_VERBOSITY_DEFAULT
+      log_lock_waits: false
+      log_statement: LOG_STATEMENT_NONE
+      log_temp_files: "-1"
+      search_path: '"$user", public'
+      row_security: true
+      default_transaction_isolation: TRANSACTION_ISOLATION_READ_COMMITTED
+      statement_timeout: "0"
+      lock_timeout: "0"
+      idle_in_transaction_session_timeout: "0"
+      bytea_output: BYTEA_OUTPUT_HEX
+      xmlbinary: XML_BINARY_BASE64
+      xmloption: XML_OPTION_CONTENT
+      gin_pending_list_limit: "4194304"
+      deadlock_timeout: "1000"
+      max_locks_per_transaction: "64"
+      max_pred_locks_per_transaction: "64"
+      array_nulls: true
+      backslash_quote: BACKSLASH_QUOTE_SAFE_ENCODING
+      default_with_oids: false
+      escape_string_warning: true
+      lo_compat_privileges: false
+      operator_precedence_warning: false
+      quote_all_identifiers: false
+      standard_conforming_strings: true
+      synchronize_seqscans: true
+      transform_null_equals: false
+      exit_on_error: false
+      seq_page_cost: 1
+      random_page_cost: 1
+      autovacuum_max_workers: "3"
+      autovacuum_vacuum_cost_delay: "45"
+      autovacuum_vacuum_cost_limit: "700"
+      archive_timeout: "30000"
+      enable_bitmapscan: true
+      enable_hashagg: true
+      enable_hashjoin: true
+      enable_indexscan: true
+      enable_indexonlyscan: true
+      enable_material: true
+      enable_mergejoin: true
+      enable_nestloop: true
+      enable_seqscan: true
+      enable_sort: true
+      enable_tidscan: true
+      max_worker_processes: "8"
+      max_parallel_workers: "8"
+      max_parallel_workers_per_gather: "2"
+      autovacuum_vacuum_scale_factor: 0.00001
+      autovacuum_analyze_scale_factor: 0.0001
+      default_transaction_read_only: false
+      timezone: Europe/Moscow
+      effective_io_concurrency: "1"
+      effective_cache_size: "107374182400"
+    user_config: {}
+    default_config:
+      max_connections: "400"
+      shared_buffers: "2147483648"
+      temp_buffers: "8388608"
+      max_prepared_transactions: "0"
+      work_mem: "4194304"
+      maintenance_work_mem: "67108864"
+      replacement_sort_tuples: "150000"
+      autovacuum_work_mem: "-1"
+      temp_file_limit: "-1"
+      vacuum_cost_delay: "0"
+      vacuum_cost_page_hit: "1"
+      vacuum_cost_page_miss: "10"
+      vacuum_cost_page_dirty: "20"
+      vacuum_cost_limit: "200"
+      bgwriter_delay: "200"
+      bgwriter_lru_maxpages: "100"
+      bgwriter_lru_multiplier: 2
+      backend_flush_after: "0"
+      old_snapshot_threshold: "-1"
+      wal_level: WAL_LEVEL_LOGICAL
+      synchronous_commit: SYNCHRONOUS_COMMIT_ON
+      checkpoint_timeout: "300000"
+      checkpoint_completion_target: 0.5
+      max_wal_size: "1073741824"
+      min_wal_size: "536870912"
+      max_standby_streaming_delay: "30000"
+      default_statistics_target: "1000"
+      constraint_exclusion: CONSTRAINT_EXCLUSION_PARTITION
+      cursor_tuple_fraction: 0.1
+      from_collapse_limit: "8"
+      join_collapse_limit: "8"
+      force_parallel_mode: FORCE_PARALLEL_MODE_OFF
+      client_min_messages: LOG_LEVEL_NOTICE
+      log_min_messages: LOG_LEVEL_WARNING
+      log_min_error_statement: LOG_LEVEL_ERROR
+      log_min_duration_statement: "-1"
+      log_checkpoints: false
+      log_connections: false
+      log_disconnections: false
+      log_duration: false
+      log_error_verbosity: LOG_ERROR_VERBOSITY_DEFAULT
+      log_lock_waits: false
+      log_statement: LOG_STATEMENT_NONE
+      log_temp_files: "-1"
+      search_path: '"$user", public'
+      row_security: true
+      default_transaction_isolation: TRANSACTION_ISOLATION_READ_COMMITTED
+      statement_timeout: "0"
+      lock_timeout: "0"
+      idle_in_transaction_session_timeout: "0"
+      bytea_output: BYTEA_OUTPUT_HEX
+      xmlbinary: XML_BINARY_BASE64
+      xmloption: XML_OPTION_CONTENT
+      gin_pending_list_limit: "4194304"
+      deadlock_timeout: "1000"
+      max_locks_per_transaction: "64"
+      max_pred_locks_per_transaction: "64"
+      array_nulls: true
+      backslash_quote: BACKSLASH_QUOTE_SAFE_ENCODING
+      default_with_oids: false
+      escape_string_warning: true
+      lo_compat_privileges: false
+      operator_precedence_warning: false
+      quote_all_identifiers: false
+      standard_conforming_strings: true
+      synchronize_seqscans: true
+      transform_null_equals: false
+      exit_on_error: false
+      seq_page_cost: 1
+      random_page_cost: 1
+      autovacuum_max_workers: "3"
+      autovacuum_vacuum_cost_delay: "45"
+      autovacuum_vacuum_cost_limit: "700"
+      archive_timeout: "30000"
+      enable_bitmapscan: true
+      enable_hashagg: true
+      enable_hashjoin: true
+      enable_indexscan: true
+      enable_indexonlyscan: true
+      enable_material: true
+      enable_mergejoin: true
+      enable_nestloop: true
+      enable_seqscan: true
+      enable_sort: true
+      enable_tidscan: true
+      max_worker_processes: "8"
+      max_parallel_workers: "8"
+      max_parallel_workers_per_gather: "2"
+      autovacuum_vacuum_scale_factor: 0.00001
+      autovacuum_analyze_scale_factor: 0.0001
+      default_transaction_read_only: false
+      timezone: Europe/Moscow
+      effective_io_concurrency: "1"
+      effective_cache_size: "107374182400"
+  resources:
+    resource_preset_id: s2.micro
+    disk_size: "10737418240"
+    disk_type_id: network-ssd
+  autofailover: true
+  backup_window_start:
+    hours: 22
+  access: {}
+  performance_diagnostics:
+    sessions_sampling_interval: "60"
+    statements_sampling_interval: "600"
+network_id: enpro8qb0osobp7gmlg9
+maintenance_window:
+  anytime: {}
+
+```
+
+__ВНИМАНИЕ__: не выходит подключиться, так как хост `rc1c-p8y8xsux30mu6sb9.mdb.yandexcloud.net` не известен. Я хз почему не определяется его IP и оне не пингуется и пр.
+
+```bash
+psql "host=rc1c-7bo98d6h39ne64t8.mdb.yandexcloud.net \
+      port=6432 \
+      sslmode=verify-full \
+      dbname=db1 \
+      user=user1 \
+      target_session_attrs=read-write"
+```
+
+```text
+rc1c-7bo98d6h39ne64t8.mdb.yandexcloud.net: Неизвестное имя или служба
+
+```
+
+Чnо хотел сравнить, засекая время в питоне
 
 CH:
 ```sqlite-sql

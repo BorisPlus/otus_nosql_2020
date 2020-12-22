@@ -2,12 +2,23 @@ import psycopg2
 
 
 def import_data(password):
-    conn = psycopg2.connect(
-        host="192.168.102.99",
-        database="development",
-        user="root",
-        password=password,
-        port=15434)
+
+    # VDS
+    # conn = psycopg2.connect(
+    #     host="192.168.102.99",
+    #     database="development",
+    #     user="root",
+    #     password=password,
+    #     port=15434)
+
+    conn = psycopg2.connect("""
+        host=rc1c-p8y8xsux30mu6sb9.mdb.yandexcloud.net
+        port=6432
+        dbname=db1
+        user=user1
+        password=%s
+        target_session_attrs=read-write
+    """ % password)
 
     with  conn.cursor() as cur:
         cur.execute("""
