@@ -304,7 +304,7 @@ Connected to ClickHouse server version 20.8.9 revision 54438.
 
 #### Проверка подключения на Python
 
-Пока только ради [теста](./ch_test_select.py), далее это будет использовано в замере "СН vs. PG"
+Пока только ради [теста](./ch_test_select.py), далее это будет использовано в замере производительности выборки "СН vs. PG"
 
 ```python
 import requests
