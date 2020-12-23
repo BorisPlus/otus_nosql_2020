@@ -189,6 +189,9 @@ EnableNamespace Complete.
 
 ![](./022_INTERSYSTEMS.files/pics/0.png)
 
+или даже подобное
+
+![](./022_INTERSYSTEMS.files/pics/1.png)
 
 Не знаю, что конкретно помогло, но возможно то, что через веб-панель добавил прав (применил все):
 
@@ -196,17 +199,130 @@ EnableNamespace Complete.
  
 Сущность `Company` создалась, но не отображалась в дереве. Рефреш и обновление не помогали. Помогло тольок полное выключение и включение VsCode. Возможно особенность (баг или фича) реализации под Linux.
 
-__Не понятно__: регистрозависимы ли логин и пароль. Как мне показалось, что `admin`, что `Admin` - спокойно авторизовались под одним паролем.
+__ЗАМЕЧАНИЕ__: не ясно, регистрозависимы ли логин и пароль. Как мне показалось, что `admin`, что `Admin` - спокойно авторизовались под одним паролем.
+
+__ЗАМЕЧАНИЕ__ на одной из страниц указано `PHONE> do ##class(Shop.Company).Populate(10)`. Представляется более понятным вариант `SHOP> ...`, так как о `PHONE...`
+
 
 В целом все задачи были решены, привожу скриншоты и пояснения в соотвествии с номером листа и задачей.
 
-__ЗАМЕЧАНИЕ__ на одном из страниц указано `PHONE> do ##class(Shop.Company).Populate(10)`. Представляется более понятным вариант `SHOP> ...`, так как о `PHONE...`
+## Основное ДЗ. Раздел 5
 
-r.City 
+### лист 21, пункт 16
 
-INSERT INTO Shop.Address (City, Street, Zip)
-VALUES ('Москва', 'Краснопресненская наб., 12', '000000')
+![](./022_INTERSYSTEMS.files/pics/3.png)
 
-INSERT INTO Shop.Company (Name, Phone, DeliveryAddress_City, DeliveryAddress_Street, DeliveryAddress_Zip)
-VALUES ('InterSystemsRUS', '+7 (495) 967-0088', 'Москва', 'Краснопресненская наб., 12', '000000')
-<details>
+### лист 22, пункт 17
+
+![](./022_INTERSYSTEMS.files/pics/4.png)
+
+### лист 22, пункт 17
+
+![](./022_INTERSYSTEMS.files/pics/4.png)
+
+## Дополнительное ДЗ. Раздел 6
+
+### лист 26, пункт 3.1, подраздела 6.1
+
+![](./022_INTERSYSTEMS.files/pics/5.png)
+
+### лист 26, пункт 3.2, подраздела 6.1
+
+Как видно, встаиваемые объекты (%SerialObject) хранятся в целевых таблицах, в которые они собственно и "встраиваются", а не отдельными "сущностями-таблицами".
+
+![](./022_INTERSYSTEMS.files/pics/6.png)
+
+### лист 26, пункт 3.3, подраздела 6.1
+
+Для вставки значений полей встраиваемых объектов в названиях их свойств необходимо отделять знаком подчеркивания "сущности" встраивамого объекта и ее конкретного "поля".
+```sqlite-sql
+
+INSERT INTO Shop.Company (
+    Name, 
+    Phone, 
+    DeliveryAddress_City,    -- <-- От DeliveryAddress отделено City
+    DeliveryAddress_Street,  -- <-- От DeliveryAddressо тделено Street о
+    DeliveryAddress_Zip      -- <-- От DeliveryAddress отделено Zip
+)
+VALUES (
+    'InterSystemsRUS', 
+    '+7 (495) 967-0088', 
+    'Москва', 
+    'Краснопресненская наб., 12', 
+    '000000'
+)
+```
+
+![](./022_INTERSYSTEMS.files/pics/7.png)
+
+
+### лист 29, подпункт 2.1, подраздела 6.4
+
+```text
+Изучите, какие таблицы получились, нарисуйте (опишите) структуру
+таблиц в любом виде и пришлите ее отчете по ДЗ.
+```
+
+![](./022_INTERSYSTEMS.files/pics/12.png)
+
+Описание:
+- `Заказ` (Order) - персистентен и состоит из персистентных `Позиций заказа` (OrderItem)
+- `Компания` (Company) - персистентна и содержит встроенную сущность `Адрес` доставки (Address). `Компания` выступает в качестве инициатора `Заказов` (заказчик, Customer).
+ 
+### лист 29, подпункт 2.2, подраздела 6.4
+
+Order
+
+![](./022_INTERSYSTEMS.files/pics/8.png)
+
+OrderItem
+
+![](./022_INTERSYSTEMS.files/pics/9.png)
+
+Их состояние
+
+![](./022_INTERSYSTEMS.files/pics/9.1.png)
+
+### лист 29, пункт 3, подраздела 6.4
+
+![](./022_INTERSYSTEMS.files/pics/10.png)
+
+### лист 29, пункт 4, подраздела 6.4
+
+`Продукт` [сделал](./022_INTERSYSTEMS.files/2/Product.cls) персистентным и связял отношением один-ко-многим с [сущностью](./022_INTERSYSTEMS.files/2/OrderItem.cls) `Позиции заказов`
+
+```sqlite-sql
+Class Shop.Product Extends (%Persistent, %Populate)
+    {
+    
+    Property Name As %String; -- НАЗВАНИЕ ПРОДУКТА
+    
+    Property ProductBarCode As %String; -- ШТРИХ-КОД ДЛЯ ПРОБИВА НА КАССЕ
+    
+    Property Weight As %Integer; -- ВЕС
+    
+    Property Price As %Integer; -- ЦЕНА
+    
+    -- УНИКАЛЬНОСТЬ ОПРЕДЕЛЯТЕСЯ ШТРИХ-КОДОМ
+    Index ProductBarCodeIndex On ProductBarCode [ Unique ]; 
+    
+    -- ОДНОЙ ПОЗИЦИИ В ЗАКАЗЕ МОЖЕТ СООТВЕСТВОВАТЬ ТОЛЬКО ОДИН ПРОДУКТ
+    Relationship OrdersItems As Shop.OrderItem [ Cardinality = one, Inverse = Product ];
+    
+    ...
+    }
+
+Class Shop.OrderItem Extends (%Persistent, %Populate)
+    {
+    
+    -- ПРОДУКТ МОЖЕТ БЫТЬ В РАЗНЫХ ПОЗИЦИЯХ (У РАЗНЫХ ЗАКАЗОВ СООТВЕСТВЕННО)
+    
+    Relationship Product As Shop.Product [ Cardinality = many, Inverse = OrdersItems ];
+    
+    Property Count As %Integer;
+    
+    Relationship Order As Shop.Order [ Cardinality = parent, Inverse = Items ];
+    ...
+    }
+
+```
