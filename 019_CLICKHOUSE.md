@@ -304,32 +304,50 @@ Connected to ClickHouse server version 20.8.9 revision 54438.
 
 #### Проверка подключения на Python
 
-Пока только ради [теста](./ch_test_select.py), далее это будет использовано в замере производительности выборки "СН vs. PG"
+Пока только ради [теста](./019_CLICKHOUSE.files/speed_test_of_clickhouse.py), далее это будет использовано в замере производительности выборки "СН vs. PG"
 
 ```python
-import requests
-
-def request(password):
-    url = 'https://{host}:8443/?database={db}&query={query}'.format(
-        host='<HOST_NAME>.mdb.yandexcloud.net',
-        db='development',
-        query='SELECT now()')
-    auth = {
-        'X-ClickHouse-User': 'otus',
-        'X-ClickHouse-Key': password,
-    }
-
-    res = requests.get(
-        url,
-        headers=auth,
-        verify='/usr/local/share/ca-certificates/Yandex/YandexInternalRootCA.crt')
-    res.raise_for_status()
-    return res.text
-
-if __name__ == '__main__':
-    password = input('Enter password: ')
-    print(request(password))
+        ...
+        start_time = time.time()
+        res = requests.get(
+            url,
+            headers=auth,
+            verify='/usr/local/share/ca-certificates/Yandex/YandexInternalRootCA.crt')
+        res.raise_for_status()
+        end_time = time.time()
+        ...
 ```
+
+__ВНИМАНИЕ__: При нескольких прогонах теста скорость исполнения тестируемых запросов порой значительно увеличивается в повторные разы из исполнения. В отчете будут приведены данные как есть, без анализа.
+
+<details><summary>отчет теста</summary>
+
+```bash
+python3 speed_test_of_clickhouse.py 
+Enter password: ******
+
+
+0.32269954681396484 s
+1676861
+
+0.18030214309692383 s
+2014-03-17      265120
+2014-03-18      258925
+2014-03-19      261624
+2014-03-20      255336
+2014-03-21      236290
+2014-03-22      197354
+2014-03-23      202212
+
+0.21049833297729492 s
+2014-03-17      265120
+2014-03-18      258925
+2014-03-19      261624
+
+Done
+```
+</details>
+
 
 ### Набор данных из презентации Олега
 
@@ -583,6 +601,14 @@ SELECT COUNT(*) FROM development.visits_v1
 0	1676861
 ```
 
+Итого крайний запрос по сведениям [теста](./019_CLICKHOUSE.files/speed_test_of_clickhouse.py)
+
+```sqlite-sql
+SELECT COUNT(*) FROM development.visits_v1
+```
+
+исполнялся 0.32269954681396484 sec.
+
 ##### Выборка с группировкой по партициям
 
 ```sqlite-sql
@@ -602,6 +628,8 @@ GROUP BY (StartDate);
 6	"2014-03-23"	202212
 ```
 
+Итого запрос по сведениям [теста](./019_CLICKHOUSE.files/speed_test_of_clickhouse.py) исполнялся 0.18030214309692383 sec.
+
 ##### Выборка с группировки и фильтацией
 
 ```sqlite-sql
@@ -609,7 +637,6 @@ SELECT StartDate, COUNT(CounterID)
 FROM development.visits_v1
 WHERE  StartDate < toDate('2014-03-20')
 GROUP BY (StartDate);
--- 
 ```
 
 ```text
@@ -617,8 +644,9 @@ GROUP BY (StartDate);
 0	"2014-03-17"	265120
 1	"2014-03-18"	258925
 2	"2014-03-19"	261624
-
 ```
+
+Итого запрос по сведениям [теста](./019_CLICKHOUSE.files/speed_test_of_clickhouse.py) исполнялся 0.21049833297729492 sec.
 
 ## Сравнение с Postgres (пока в доработке, причина ниже)
 
