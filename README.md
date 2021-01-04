@@ -22,9 +22,8 @@
 18. нет
 19. [Clickhouse](./019_CLICKHOUSE.md)
 20. нет
-21. нет
-22. [InterSystems Caché](./022_INTERSYSTEMS.md)
-22.1 [Tarantool](./022_TARANTOOL.md)
+21. [InterSystems Caché](./022_INTERSYSTEMS.md)
+22. [Tarantool](./022_TARANTOOL.md)
 
 
 ## Заметки
