@@ -105,8 +105,6 @@ s:select{}
 
 ### Функция списания денег
 
-__Не понятна формулировка ДЗ__: "изменение расхода денег __в секунду__" - нужно сделать что-то рандомно пополняющее\снижающее баланс рандомного пользователя?
-
 ```bash
 function decrease_balance(user, coins)
     local current_balance = box.space.billing:select{user}[1][2] 
@@ -123,6 +121,11 @@ function decrease_balance(user, coins)
     return string.format("остаток средств: %s", current_balance - coins)
     -- return current_balance - coins
 end
+
+s:update({'user_03'}, {{'=', 2, 750}})
+---
+- ['user_03', 750]
+...
 
 decrease_balance('user_03', 200)
 ---
