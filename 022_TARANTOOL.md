@@ -116,10 +116,9 @@ function decrease_balance(user, coins)
     if( current_balance == coins ) then 
         -- послать что средства только что закончились
         return string.format("средства только что закончились")
-        -- return 0
     end
+    -- остаток на счете
     return string.format("остаток средств: %s", current_balance - coins)
-    -- return current_balance - coins
 end
 
 s:update({'user_03'}, {{'=', 2, 750}})
@@ -150,12 +149,12 @@ decrease_balance('user_03', 50)
 
 ### Уведомление внешнего HTTP-сервиса
 
-Допишем `notify` функцию, которая посылает `POST` уведомление на условный 
-внешний HTTP-сервис о состоянии баланса пользователя при операции списания.
+Функция `notify`, которая посылает `POST` на условный 
+внешний HTTP-сервис уведомление о состоянии баланса пользователя при операции списания. 
 
-__Замечание__: не нашел как передать POST параметры :( в привычном виде, это `{message=message, user=user}`вообще возможно ?
+__Замечание__: не нашел, как передать POST параметры :( . В привычном виде, это что-то типа ключ-значение `{message=message, user=user}`, вообще возможно ?
 
-```
+```bash
 function notify(user, message)
     http_client = require('http.client').new()
     local body = string.format("user=%s&message=%s", user, message)
@@ -176,7 +175,8 @@ function decrease_balance(user, coins)
         local message = string.format("средства только что закончились")
         notify(user, message)
         return message
-    end
+    end    -- остаток на счете
+
     local message = string.format("остаток средств: %s", current_balance - coins)
     notify(user, message)
     return message
