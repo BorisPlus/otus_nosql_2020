@@ -28,25 +28,62 @@ docker run \
 ```
 
 ```bash
-
 docker exec -i -t mytarantool console
 
 connected to unix/:/var/run/tarantool/tarantool.sock
 unix/:/var/run/tarantool/tarantool.sock> 
+```
 
+Создаем или выбираем существующий `space`
+```bash
+billing = box.schema.space.create('billing', {if_not_exists=true});
+balance = box.schema.space.create('balance', {if_not_exists=true});
+```
 
-s = box.schema.space.create('billing')
-s:format({
+Определяем поля
+```bash
+balance:format({
     {name = 'username', type = 'string'},
-    {name = 'balance', type = 'unsigned'}
-})
-
-s:create_index(
+    {name = 'coins', type = 'unsigned'}
+});
+balance:create_index(
    'primary', {
        type = 'hash',
        parts = {'username'}
    }
-)
+);
+
+billing:format({
+    {name = 'id', type = 'integer'},
+    {name = 'datetime', type = 'unsigned'},
+    {name = 'username', type = 'string'},
+    {name = 'balance_before', type = 'unsigned'},
+    {name = 'operation', type = 'integer'},
+    {name = 'balance_after', type = 'unsigned'},
+    {name = 'message', type = 'string'}
+});
+---
+...
+
+billing:create_index(
+   'primary', {
+       type = 'tree',
+       parts = {'id'}
+   }
+);
+---
+- unique: true
+  parts:
+  - type: unsigned
+    is_nullable: false
+    fieldno: 1
+  id: 0
+  space_id: 515
+  type: TREE
+  name: primary
+  
+box.space.billing:auto_increment{'id'}
+billing:auto_increment{'id'};
                
     - unique: true
       parts:
