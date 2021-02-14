@@ -14,11 +14,11 @@ https://docs.microsoft.com/ru-ru/rest/api/azure/
 В документации https://docs.microsoft.com/en-us/rest/api/cosmos-db/#supported-rest-api-versions говорится о необходимости передачи HTTP-заголовка `x-ms-version`.
 
 ```text
-Supported REST API Versions
-
-The following table lists the supported REST API versions by the Azure Cosmos DB service. 
-The version must be specified via the x-ms-version header in every request. If not specified,
- the service defaults to the latest version 2017-02-22.
+    Supported REST API Versions
+    
+    The following table lists the supported REST API versions by the Azure Cosmos DB service. 
+    The version must be specified via the x-ms-version header in every request. If not specified,
+     the service defaults to the latest version 2017-02-22.
 ```
 
 Попробуем получить список баз данных (они заранее созданы вручную мной через веб)
@@ -41,8 +41,11 @@ print(response.text)
 ```
 вывод таков
 ```text
-401
-{"code":"Unauthorized","message":"Required Header authorization is missing. Ensure a valid Authorization token is passed.\r\nActivityId: 92c10a96-e68a-4110-a22a-1cd65115b347, Microsoft.Azure.Documents.Common/2.11.0"}
+    401
+
+    {"code":"Unauthorized","message":"Required Header authorization is missing. 
+    Ensure a valid Authorization token is passed.\r\nActivityId: 92c10a96-e68a-4110-a22a-1cd65115b347, 
+    Microsoft.Azure.Documents.Common/2.11.0"}
 ```
 
 Говорит нужен токен авторизации.
@@ -56,7 +59,7 @@ https://docs.microsoft.com/en-us/rest/api/authorization/classicadministrators/li
 и внизу есть нужный заголовок для REST запроса
 
 ```
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuY29yZS53aW5kb3dzLm5ldC8iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MWQ5ODM2Ni05MmZjLTQ2ZDAtYTg0NC1jMDk3MjUyYmY1YjYvIiwiaWF0IjoxNjEzMjg3Njg0LCJuYmYiOjE2MTMyODc2ODQsImV4cCI6MTYxMzI5MTU4NCwiYWNyIjoiMSIsImFpbyI6IkFVUUF1LzhUQUFBQTI4Qzg5RjkvdFZtUXJSWXpuOHJ5eWkxc3U5Q2JrczAweGFkVlZjb2E3QUdNNHRDeFA5UUU0c1N5S2hRZzh2WFJlZ21CU2NXU3FPSUlYc3haeWYzZGR3PT0iLCJhbHRzZWNpZCI6IjE6bGl2ZS5jb206MDAwMzAwMDAzODYyQjA3QSIsImFtciI6WyJwd2QiXSwiYXBwaWQiOiI3ZjU5YTc3My0yZWFmLTQyOWMtYTA1OS01MGZjNWJiMjhiNDQiLCJhcHBpZGFjciI6IjIiLCJlbWFpbCI6ImJvcmlzb3YtaWxpYUB5YW5kZXgucnUiLCJmYW1pbHlfbmFtZSI6ItCR0L7RgNC40YHQvtCyIiwiZ2l2ZW5fbmFtZSI6ItCY0LvRjNGPIiwiZ3JvdXBzIjpbIjgwYmYyYjU3LWFkMmEtNGJjNS04OGZjLWExNDI3MjUwYjA1NCJdLCJpZHAiOiJsaXZlLmNvbSIsImlwYWRkciI6Ijc4LjM2L
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhF...
 ```
 
 Все понятно. Но не понятно КАК получить Bearer? как автризоваться? Где этот метод API по авторизации?
@@ -79,14 +82,16 @@ https://docs.microsoft.com/ru-ru/azure/cosmos-db/create-mongodb-flask
 git clone https://github.com/Azure-Samples/CosmosDB-Flask-Mongo-Sample.git
 ```
 
-Мое мнение, пример должен быть более базовым. Разбираться в обращении его к Аузуру? Сначала тогде человеку нужно полнять опыт по Flask. Честно, я писал не нем приложения, но это не пример. Должен быть более базовым.
+Мое мнение, пример должен быть более базовым. Разбираться в обращении его к Азуру? Сначала тогда человеку нужно поднять опыт по Flask. Я писал на нем приложения, но это не пример. 
+Должен быть более базовый.
 
 Есть еще библиотеки 
 https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/cosmos/azure-cosmos#create-a-database
 
-А теперь самое на мой взгляд важное
+А теперь самое на мой взгляд важное.
 
-Идем в панель учетки вашей, где высоздали базу данных 
+Идем в панель учетки, где создали базу данных 
+
 "Учетная запись Azure Cosmos DB" -> "Быстрый запуск"
 "Поздравляем! Учетная запись Azure Cosmos DB для API MongoDB создана."
 
