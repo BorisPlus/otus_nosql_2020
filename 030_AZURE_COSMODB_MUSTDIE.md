@@ -110,6 +110,7 @@ https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/cosmos/azure-cosmo
 ```python
 import pymongo
 import json
+import time
 
 data_file = '../003_MONGODB.files/y77d-th95.json'
 with open(data_file) as f:
@@ -129,11 +130,18 @@ db = client.meteorites_2020
 
 meteorites = db.meteorites
 meteorites.create_index("id", unique=True)
+start = time.time()
 meteorites.insert_many(data)
-
+print('Size: ', len(data))
+print('Time left: ', time.time() - start, 'sec')
 ```
 
 Все! Данные загружены программно.
+
+```text
+Size:  1000
+Time left:  21.05442810058593 sec
+```
 
 Я - хз. Столько таргета - модели, рест и гибкость. И в итоге все стандартным только `pymongo` и получилось.
 
