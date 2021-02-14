@@ -11,7 +11,7 @@
 Пытаюсь организовать работу c Azure Cosmos DB посредством его RESTFUL Api
 https://docs.microsoft.com/ru-ru/rest/api/azure/ 
 
-В докумнтации https://docs.microsoft.com/en-us/rest/api/cosmos-db/#supported-rest-api-versions говорится о необходимости передачи HTTP-заголовка `x-ms-version`.
+В документации https://docs.microsoft.com/en-us/rest/api/cosmos-db/#supported-rest-api-versions говорится о необходимости передачи HTTP-заголовка `x-ms-version`.
 
 ```text
 Supported REST API Versions
