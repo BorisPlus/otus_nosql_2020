@@ -129,7 +129,11 @@ db = client.meteorites_2020
 
 meteorites = db.meteorites
 meteorites.create_index("id", unique=True)
+meteorites.insert_many(data)
+
 ```
+
+Все! Данные загружены программно.
 
 Я - хз. Столько таргета - модели, рест и гибкость. И в итоге все стандартным только `pymongo` и получилось.
 
