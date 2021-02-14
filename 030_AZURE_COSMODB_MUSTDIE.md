@@ -16,18 +16,16 @@ https://docs.microsoft.com/ru-ru/rest/api/azure/
 ```text
 Supported REST API Versions
 
-The following table lists the supported REST API versions by the Azure Cosmos DB service. The version must be specified via the x-ms-version header in every request. If not specified, the service defaults to the latest version 2017-02-22.
+The following table lists the supported REST API versions by the Azure Cosmos DB service. 
+The version must be specified via the x-ms-version header in every request. If not specified,
+ the service defaults to the latest version 2017-02-22.
 ```
+
 Попробуем получить список баз данных (они заранее созданы вручную мной через веб)
 
 https://docs.microsoft.com/en-us/rest/api/cosmos-db/list-databases
 
 В документации приводится о необходимости еще заголовков https://docs.microsoft.com/en-us/rest/api/cosmos-db/common-cosmosdb-rest-response-headers
-
-```text
-
-```
-
 
 ```python
 import requests
@@ -96,13 +94,13 @@ https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/cosmos/azure-cosmo
 Отлично. Наконец я на программном уровне могу загрузтить туда свою коллекцию, думаю я. 
 Но НЕТ!!!!!
 
-Вдруг pymongo просит внести дополнительный заголовок в подключение к MongoDB
+Вдруг `pymongo` просит внести дополнительный заголовок в подключение к MongoDB
 
 ```
 &retrywrites=false
 ```
 
-Без него работать НЕ будет. Где это сказано, где описано.
+Без него работать НЕ будет. Где это сказано, где описано... 
 
 ```python
 import pymongo
@@ -119,6 +117,7 @@ uri = (
     "?ssl=true&replicaSet=globaldb"
     "&maxIdleTimeMS=120000"
     "&appName=@otus@"
+    "&retrywrites=false"  # !!! NEED 
 )
 client = pymongo.MongoClient(uri)
 db = client.meteorites_2020
