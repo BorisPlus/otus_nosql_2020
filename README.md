@@ -24,6 +24,7 @@
 20. нет
 21. [InterSystems Caché](./022_INTERSYSTEMS.md)
 22. [Tarantool](./022_TARANTOOL.md)
+30. [Azure CosmosDB](./030_AZURE_COSMODB_MUSTDIE.md)
 
 
 ## Заметки
